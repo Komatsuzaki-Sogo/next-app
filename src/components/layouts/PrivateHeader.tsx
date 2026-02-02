@@ -13,7 +13,7 @@ export default async function PrivateHeader() {
   if (!session?.user?.email) throw new Error('不正なリクエストです');
 
   return (
-    <header className="border-b bg-blue-200">
+    <header className="border-b">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <NavigationMenu>
           <NavigationMenuList>
