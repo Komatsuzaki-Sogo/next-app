@@ -15,6 +15,7 @@ import { createUser } from '@/lib/actions/createUser';
 import { signupBaseSchema } from '@/validations/user';
 import InputPassword from '@/components/ui/input-password';
 import ErrorText from '@/components/ui/error-text';
+import { Badge } from '@/components/ui/badge';
 
 type ClientErrors = {
   name?: string;
@@ -110,11 +111,14 @@ export default function SignupForm() {
                 <ErrorText>{state.errors.confirmPassword.join(',')}</ErrorText>
               )}
               <Field>
-                <FieldLabel htmlFor="name">名前</FieldLabel>
+                <FieldLabel htmlFor="name">
+                  ユーザー名<Badge variant="required">必須</Badge>
+                </FieldLabel>
                 <Input
                   id="name"
                   type="text"
                   name="name"
+                  placeholder="ユーザー名を入力"
                   required
                   value={form.name}
                   onChange={(e) =>
@@ -130,11 +134,14 @@ export default function SignupForm() {
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor="email">メールアドレス</FieldLabel>
+                <FieldLabel htmlFor="email">
+                  メールアドレス<Badge variant="required">必須</Badge>
+                </FieldLabel>
                 <Input
                   id="email"
                   type="email"
                   name="email"
+                  placeholder="メールアドレスを入力"
                   required
                   value={form.email}
                   onChange={(e) =>
@@ -150,10 +157,13 @@ export default function SignupForm() {
                 )}
               </Field>
               <Field>
-                <FieldLabel htmlFor="password">パスワード</FieldLabel>
+                <FieldLabel htmlFor="password">
+                  パスワード<Badge variant="required">必須</Badge>
+                </FieldLabel>
                 <InputPassword
                   id="password"
                   name="password"
+                  placeholder="パスワードを入力"
                   required
                   value={form.password}
                   onChange={(e) =>
@@ -170,11 +180,12 @@ export default function SignupForm() {
               </Field>
               <Field>
                 <FieldLabel htmlFor="confirmPassword">
-                  パスワード(確認)
+                  パスワード（確認）<Badge variant="required">必須</Badge>
                 </FieldLabel>
                 <InputPassword
                   id="confirmPassword"
                   name="confirmPassword"
+                  placeholder="パスワード（確認）を入力"
                   required
                   value={form.confirmPassword}
                   onChange={(e) =>

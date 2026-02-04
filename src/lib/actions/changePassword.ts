@@ -1,11 +1,10 @@
 'use server';
 
+import { passwordChangeSchema } from '@/validations/user';
 import { prisma } from '@/lib/prisma';
-import { changePasswordSchema } from '@/validations/password';
-import { ZodError } from 'zod';
 import bcryptjs from 'bcryptjs';
 import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+import { ZodError } from 'zod';
 
 type ActionState = {
   success: boolean;
@@ -14,13 +13,18 @@ type ActionState = {
 
 function handleValidationError(error: ZodError): ActionState {
   const { fieldErrors, formErrors } = error.flatten();
+
   if (formErrors.length > 0) {
     return {
       success: false,
-      errors: { ...fieldErrors, confirmPassword: formErrors },
+      errors: { ...fieldErrors, newConfirmPassword: formErrors },
     };
   }
-  return { success: false, errors: fieldErrors as Record<string, string[]> };
+
+  return {
+    success: false,
+    errors: fieldErrors as Record<string, string[]>,
+  };
 }
 
 export async function changePassword(
@@ -31,19 +35,20 @@ export async function changePassword(
   if (!session?.user?.email) {
     return {
       success: false,
-      errors: { currentPassword: ['認証エラーが発生しました'] },
+      errors: { password: ['認証情報が取得できません'] },
     };
   }
 
-  const rawFormData = {
-    currentPassword: formData.get('currentPassword') as string,
-    password: formData.get('password') as string,
-    confirmPassword: formData.get('confirmPassword') as string,
-  };
+  const raw = Object.fromEntries(
+    ['password', 'newPassword', 'newConfirmPassword'].map((k) => [
+      k,
+      formData.get(k) as string,
+    ]),
+  );
 
-  const validationResult = changePasswordSchema.safeParse(rawFormData);
-  if (!validationResult.success) {
-    return handleValidationError(validationResult.error);
+  const validation = passwordChangeSchema.safeParse(raw);
+  if (!validation.success) {
+    return handleValidationError(validation.error);
   }
 
   const user = await prisma.user.findUnique({
@@ -53,28 +58,24 @@ export async function changePassword(
   if (!user) {
     return {
       success: false,
-      errors: { currentPassword: ['ユーザーが存在しません'] },
+      errors: { password: ['ユーザーが存在しません'] },
     };
   }
 
-  const isMatch = await bcryptjs.compare(
-    rawFormData.currentPassword,
-    user.password,
-  );
-
-  if (!isMatch) {
+  const isValid = await bcryptjs.compare(raw.password, user.password);
+  if (!isValid) {
     return {
       success: false,
-      errors: { currentPassword: ['現在のパスワードが正しくありません'] },
+      errors: { password: ['現在のパスワードが正しくありません'] },
     };
   }
 
-  const hashedPassword = await bcryptjs.hash(rawFormData.password, 12);
+  const hashed = await bcryptjs.hash(raw.newPassword, 12);
 
   await prisma.user.update({
     where: { id: user.id },
-    data: { password: hashedPassword },
+    data: { password: hashed },
   });
 
-  redirect('/dashboard');
+  return { success: true, errors: {} };
 }

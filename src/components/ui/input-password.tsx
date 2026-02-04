@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 type Props = {
   id: string;
   name: string;
+  placeholder?: string;
   required?: boolean;
   handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   value?: string;
@@ -15,6 +16,7 @@ type Props = {
 export default function InputPassword({
   id,
   name,
+  placeholder,
   required,
   handleBlur,
   value,
@@ -27,6 +29,7 @@ export default function InputPassword({
       <Input
         id={id}
         name={name}
+        placeholder={placeholder}
         type={showPassword ? 'text' : 'password'}
         required={required}
         value={value}

@@ -16,6 +16,7 @@ import { authenticate } from '@/lib/actions/authenticate';
 import { loginSchema } from '@/validations/user';
 import InputPassword from '@/components/ui/input-password';
 import ErrorText from '@/components/ui/error-text';
+import { Badge } from '@/components/ui/badge';
 
 type ClientErrors = {
   email?: string;
@@ -91,11 +92,14 @@ export default function LoginForm() {
             <FieldGroup>
               {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
               <Field>
-                <FieldLabel htmlFor="email">メールアドレス</FieldLabel>
+                <FieldLabel htmlFor="email">
+                  メールアドレス<Badge variant="required">必須</Badge>
+                </FieldLabel>
                 <Input
                   id="email"
                   type="email"
                   name="email"
+                  placeholder="メールアドレスを入力"
                   required
                   value={form.email}
                   onChange={(e) =>
@@ -112,10 +116,13 @@ export default function LoginForm() {
               </Field>
 
               <Field>
-                <FieldLabel htmlFor="password">パスワード</FieldLabel>
+                <FieldLabel htmlFor="password">
+                  パスワード<Badge variant="required">必須</Badge>
+                </FieldLabel>
                 <InputPassword
                   id="password"
                   name="password"
+                  placeholder="パスワードを入力"
                   required
                   value={form.password}
                   onChange={(e) =>
