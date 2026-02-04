@@ -25,6 +25,9 @@ export default function Setting({ session }: { session: Session }) {
         <DropdownMenuItem asChild className="cursor-point">
           <Link href="/user">ユーザーページ</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem asChild className="cursor-point">
+          <Link href="/user/password">パスワード変更</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={handleLogout} className="cursor-point">
           ログアウト
         </DropdownMenuItem>

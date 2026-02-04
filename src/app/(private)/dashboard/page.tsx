@@ -1,5 +1,7 @@
 import { auth } from '@/auth';
 import { getOwnPosts } from '@/lib/ownPost';
+import CommonSection from '@/components/layouts/CommonSection';
+
 export default async function DashBoardPage() {
   const session = await auth();
   const userId = session?.user?.id;
@@ -10,7 +12,7 @@ export default async function DashBoardPage() {
   const posts = await getOwnPosts(userId);
   console.log(posts);
   return (
-    <div className="p-4">
+    <CommonSection>
       <div className="flex justify-between">
         <h1 className="text-2xl foont-bold mb-4">パスワード管理一覧</h1>
       </div>
@@ -43,6 +45,6 @@ export default async function DashBoardPage() {
           <b>データがありません</b>
         </p>
       )}
-    </div>
+    </CommonSection>
   );
 }

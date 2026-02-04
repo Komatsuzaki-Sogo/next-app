@@ -1,3 +1,4 @@
+import PublicFooter from '@/components/layouts/PublicFooter';
 import PrivateHeader from '@/components/layouts/PrivateHeader';
 
 export default function PrivateLayout({
@@ -8,7 +9,8 @@ export default function PrivateLayout({
   return (
     <>
       <PrivateHeader />
-      <div className="container mx-auto px-4 py-8">{children}</div>
+      {children}
+      <PublicFooter />
     </>
   );
 }

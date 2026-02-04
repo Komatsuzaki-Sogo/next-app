@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const registerBaseSchema = z.object({
+export const signupBaseSchema = z.object({
   name: z.string().min(1, '名前は必須です'),
   email: z
     .string()
@@ -15,12 +15,12 @@ export const registerBaseSchema = z.object({
 });
 
 // submit 用（password一致チェックあり）
-export const registerSchema = registerBaseSchema.refine(
+export const signupSchema = signupBaseSchema.refine(
   (data) => data.password === data.confirmPassword,
   {
     message: 'パスワードが一致しません',
     path: ['confirmPassword'],
-  }
+  },
 );
 
 export const loginSchema = z.object({
@@ -30,5 +30,7 @@ export const loginSchema = z.object({
     .email('不正なメールアドレスです'),
   password: z
     .string({ required_error: 'パスワードは必須です' })
-    .min(1, 'パスワードは必須です'),
+    .min(1, 'パスワードは必須です')
+    .min(8, 'パスワードは最低8文字必要です')
+    .max(32, 'パスワードは最大32文字以内にしてください'),
 });

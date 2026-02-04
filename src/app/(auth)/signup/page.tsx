@@ -1,9 +1,10 @@
 import CommonSection from '@/components/layouts/CommonSection';
-import LoginForm from '@/components/pages/auth/LoginForm';
-export default function LoginPage() {
+import SignupForm from '@/components/pages/auth/SignupForm';
+
+export default function SignupPage() {
   return (
     <CommonSection center>
-      <LoginForm />
+      <SignupForm />
     </CommonSection>
   );
 }

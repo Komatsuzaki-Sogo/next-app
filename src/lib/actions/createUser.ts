@@ -1,6 +1,6 @@
 'use server';
 
-import { registerSchema } from '@/validations/user';
+import { signupSchema } from '@/validations/user';
 import { prisma } from '@/lib/prisma';
 import bcryptjs from 'bcryptjs';
 import { signIn } from '@/auth';
@@ -34,18 +34,18 @@ function handleError(customErrors: Record<string, string[]>): ActionState {
 
 export async function createUser(
   prevState: ActionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionState> {
   // フォームから渡ってきた情報を取得
   const rawFormData = Object.fromEntries(
     ['name', 'email', 'password', 'confirmPassword'].map((field) => [
       field,
       formData.get(field) as string,
-    ])
+    ]),
   ) as Record<string, string>;
 
   // バリデーション
-  const validationResult = registerSchema.safeParse(rawFormData);
+  const validationResult = signupSchema.safeParse(rawFormData);
   if (!validationResult.success) {
     return handleValidationError(validationResult.error);
   }

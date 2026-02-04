@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
+import CommonSection from '@/components/layouts/CommonSection';
 
 export default async function UserPage() {
   const session = await auth();
@@ -23,11 +24,11 @@ export default async function UserPage() {
   }
 
   return (
-    <div className="p-4">
+    <CommonSection>
       <h1 className="text-2xl font-bold mb-4">User</h1>
       <p>username: {user.name}</p>
       <p>email: {user.email}</p>
       <p>作成日: {user.createdAt.toLocaleDateString('ja-JP')}</p>
-    </div>
+    </CommonSection>
   );
 }

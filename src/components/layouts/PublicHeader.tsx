@@ -9,28 +9,26 @@ import {
 
 export default function PublicHeader() {
   return (
-    <div>
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild className="font-bold text-xl">
-                  <Link href="/">Home</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" asChild>
-              <Link href="/login">ログイン</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/register">登録</Link>
-            </Button>
-          </div>
+    <header className="border-b h-(--header-height) flex items-center">
+      <div className="w-full mx-auto px-4 flex items-center justify-between max-w-(--section-width)">
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild className="font-bold text-xl">
+                <Link href="/">Home</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        <div className="flex items-center gap-4">
+          <Button variant="outline" asChild>
+            <Link href="/login">ログイン</Link>
+          </Button>
+          <Button asChild>
+            <Link href="/signup">サインアップ</Link>
+          </Button>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
