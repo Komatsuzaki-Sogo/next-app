@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,7 +14,6 @@ import {
 import { useActionState, useState } from 'react';
 import { authenticate } from '@/lib/actions/authenticate';
 import { loginSchema } from '@/validations/user';
-import z from 'zod';
 import InputPassword from '@/components/ui/input-password';
 import ErrorText from '@/components/ui/error-text';
 
@@ -28,33 +28,53 @@ export default function LoginForm() {
     undefined,
   );
 
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
   const [clientErrors, setClientErrors] = useState<ClientErrors>({});
 
+  /**
+   * blur 時の単一フィールドバリデーション
+   */
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    try {
-      if (name === 'email') {
-        loginSchema.pick({ email: true }).parse({ email: value });
-      }
+    if (name !== 'email' && name !== 'password') return;
 
-      if (name === 'password') {
-        loginSchema.pick({ password: true }).parse({ password: value });
-      }
+    const result = loginSchema.safeParse({
+      [name]: value,
+    });
 
-      // エラーなし → そのフィールドのエラーを消す
-      setClientErrors((prev) => ({
-        ...prev,
-        [name]: '',
-      }));
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        setClientErrors((prev) => ({
-          ...prev,
-          [name]: error.errors[0]?.message ?? '',
-        }));
-      }
+    if (result.success) {
+      setClientErrors((prev) => ({ ...prev, [name]: '' }));
+    } else {
+      const message = result.error.flatten().fieldErrors[name]?.[0] ?? '';
+      setClientErrors((prev) => ({ ...prev, [name]: message }));
     }
+  };
+
+  /**
+   * submit 時の最終バリデーション
+   */
+  const submit = async (formData: FormData) => {
+    const raw = Object.fromEntries(formData) as {
+      email: string;
+      password: string;
+    };
+
+    const result = loginSchema.safeParse(raw);
+    if (!result.success) {
+      const errors = result.error.flatten().fieldErrors;
+      setClientErrors({
+        email: errors.email?.[0],
+        password: errors.password?.[0],
+      });
+      return;
+    }
+
+    formAction(formData);
   };
 
   return (
@@ -65,9 +85,11 @@ export default function LoginForm() {
             <h1>ログイン</h1>
           </CardTitle>
         </CardHeader>
+
         <CardContent>
-          <form action={formAction} className="flex flex-col gap-6">
+          <form action={submit} className="flex flex-col gap-6">
             <FieldGroup>
+              {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
               <Field>
                 <FieldLabel htmlFor="email">メールアドレス</FieldLabel>
                 <Input
@@ -75,24 +97,40 @@ export default function LoginForm() {
                   type="email"
                   name="email"
                   required
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
                   onBlur={handleBlur}
                 />
                 {clientErrors.email && (
                   <ErrorText>{clientErrors.email}</ErrorText>
                 )}
               </Field>
+
               <Field>
                 <FieldLabel htmlFor="password">パスワード</FieldLabel>
                 <InputPassword
                   id="password"
                   name="password"
                   required
+                  value={form.password}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                   handleBlur={handleBlur}
                 />
                 {clientErrors.password && (
                   <ErrorText>{clientErrors.password}</ErrorText>
                 )}
               </Field>
+
               <Field>
                 <div className="text-center">
                   <Button type="submit" size="lg">
@@ -105,18 +143,11 @@ export default function LoginForm() {
                   <Link href="/signup">こちら</Link>
                 </FieldDescription>
               </Field>
-
-              {errorMessage && (
-                <div>
-                  <div className="text-red-500">
-                    <p className="text-sm text-red-500">{errorMessage}</p>
-                  </div>
-                </div>
-              )}
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
+
       {isPending && <LoadingUI />}
     </>
   );

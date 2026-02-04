@@ -5,7 +5,7 @@ export default function ErrorText({
 }>) {
   return (
     <p className="text-red-500 text-sm">
-      <strong>{children}</strong>
+      <strong className="font-normal">{children}</strong>
     </p>
   );
 }

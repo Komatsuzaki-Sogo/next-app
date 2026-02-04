@@ -1,11 +1,15 @@
+'use client';
+
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 
-type InputPasswordProps = {
-  id?: string;
-  name?: string;
+type Props = {
+  id: string;
+  name: string;
   required?: boolean;
-  handleBlur?: React.FocusEventHandler<HTMLInputElement>;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function InputPassword({
@@ -13,16 +17,20 @@ export default function InputPassword({
   name,
   required,
   handleBlur,
-}: InputPasswordProps) {
+  value,
+  onChange,
+}: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="relative">
       <Input
         id={id}
-        type={showPassword ? 'text' : 'password'}
         name={name}
+        type={showPassword ? 'text' : 'password'}
         required={required}
+        value={value}
+        onChange={onChange}
         onBlur={handleBlur}
       />
       <button

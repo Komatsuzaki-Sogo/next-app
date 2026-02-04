@@ -13,7 +13,6 @@ import {
 import { useActionState, useState } from 'react';
 import { createUser } from '@/lib/actions/createUser';
 import { signupBaseSchema } from '@/validations/user';
-import z from 'zod';
 import InputPassword from '@/components/ui/input-password';
 import ErrorText from '@/components/ui/error-text';
 
@@ -30,45 +29,61 @@ export default function SignupForm() {
     errors: {},
   });
 
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
   const [clientErrors, setClientErrors] = useState<ClientErrors>({});
 
+  /**
+   * blur 時の単一フィールドバリデーション
+   */
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    try {
-      if (name === 'name') {
-        signupBaseSchema.pick({ name: true }).parse({ name: value });
-      }
+    if (
+      name !== 'name' &&
+      name !== 'email' &&
+      name !== 'password' &&
+      name !== 'confirmPassword'
+    )
+      return;
 
-      if (name === 'email') {
-        signupBaseSchema.pick({ email: true }).parse({ email: value });
-      }
+    const result = signupBaseSchema.safeParse({
+      [name]: value,
+    });
 
-      if (name === 'password') {
-        signupBaseSchema.pick({ password: true }).parse({ password: value });
-      }
-
-      if (name === 'confirmPassword') {
-        signupBaseSchema.pick({ password: true, confirmPassword: true }).parse({
-          password: (document.getElementById('password') as HTMLInputElement)
-            ?.value,
-          confirmPassword: value,
-        });
-      }
-
-      // エラーなし → そのフィールドのエラーを消す
-      setClientErrors((prev) => ({
-        ...prev,
-        [name]: '',
-      }));
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        setClientErrors((prev) => ({
-          ...prev,
-          [name]: error.errors[0]?.message ?? '',
-        }));
-      }
+    if (result.success) {
+      setClientErrors((prev) => ({ ...prev, [name]: '' }));
+    } else {
+      const message = result.error.flatten().fieldErrors[name]?.[0] ?? '';
+      setClientErrors((prev) => ({ ...prev, [name]: message }));
     }
+  };
+
+  /**
+   * submit 時の最終バリデーション
+   */
+  const submit = async (formData: FormData) => {
+    const raw = Object.fromEntries(formData) as {
+      email: string;
+      password: string;
+    };
+
+    const result = signupBaseSchema.safeParse(raw);
+    if (!result.success) {
+      const errors = result.error.flatten().fieldErrors;
+      setClientErrors({
+        email: errors.email?.[0],
+        password: errors.password?.[0],
+      });
+      return;
+    }
+
+    formAction(formData);
   };
 
   return (
@@ -80,8 +95,20 @@ export default function SignupForm() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={formAction} className="flex flex-col gap-6">
+          <form action={submit} className="flex flex-col gap-6">
             <FieldGroup>
+              {state.errors.name && (
+                <ErrorText>{state.errors.name.join(',')}</ErrorText>
+              )}
+              {state.errors.password && (
+                <ErrorText>{state.errors.password.join(',')}</ErrorText>
+              )}
+              {state.errors.email && (
+                <ErrorText>{state.errors.email.join(',')}</ErrorText>
+              )}
+              {state.errors.confirmPassword && (
+                <ErrorText>{state.errors.confirmPassword.join(',')}</ErrorText>
+              )}
               <Field>
                 <FieldLabel htmlFor="name">名前</FieldLabel>
                 <Input
@@ -89,11 +116,15 @@ export default function SignupForm() {
                   type="text"
                   name="name"
                   required
+                  value={form.name}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
                   onBlur={handleBlur}
                 />
-                {state.errors.name && (
-                  <ErrorText>{state.errors.name.join(',')}</ErrorText>
-                )}
                 {clientErrors.name && (
                   <ErrorText>{clientErrors.name}</ErrorText>
                 )}
@@ -105,11 +136,15 @@ export default function SignupForm() {
                   type="email"
                   name="email"
                   required
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
+                  }
                   onBlur={handleBlur}
                 />
-                {state.errors.email && (
-                  <ErrorText>{state.errors.email.join(',')}</ErrorText>
-                )}
                 {clientErrors.email && (
                   <ErrorText>{clientErrors.email}</ErrorText>
                 )}
@@ -120,11 +155,15 @@ export default function SignupForm() {
                   id="password"
                   name="password"
                   required
+                  value={form.password}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      password: e.target.value,
+                    }))
+                  }
                   handleBlur={handleBlur}
                 />
-                {state.errors.password && (
-                  <ErrorText>{state.errors.password.join(',')}</ErrorText>
-                )}
                 {clientErrors.password && (
                   <ErrorText>{clientErrors.password}</ErrorText>
                 )}
@@ -137,13 +176,15 @@ export default function SignupForm() {
                   id="confirmPassword"
                   name="confirmPassword"
                   required
+                  value={form.confirmPassword}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      confirmPassword: e.target.value,
+                    }))
+                  }
                   handleBlur={handleBlur}
                 />
-                {state.errors.confirmPassword && (
-                  <ErrorText>
-                    {state.errors.confirmPassword.join(',')}
-                  </ErrorText>
-                )}
                 {clientErrors.confirmPassword && (
                   <ErrorText>{clientErrors.confirmPassword}</ErrorText>
                 )}
