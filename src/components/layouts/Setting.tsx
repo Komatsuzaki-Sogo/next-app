@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { User } from '@deemlol/next-icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +19,7 @@ export function Setting({ session }: { session: Session }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="font-medium">
+          <User size={28} color="var(--foreground)" />
           {session.user?.name}
         </Button>
       </DropdownMenuTrigger>
