@@ -11,7 +11,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { useActionState, useState } from 'react';
-import { createUser } from '@/lib/actions/createUser';
+import { createUser } from '@/lib/actions/user/createUser';
 import { signupBaseSchema } from '@/validations/user';
 import { InputPassword } from '@/components/ui/input-password';
 import { ErrorText } from '@/components/ui/error-text';

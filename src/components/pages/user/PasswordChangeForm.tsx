@@ -8,7 +8,7 @@ import { InputPassword } from '@/components/ui/input-password';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { ErrorText } from '@/components/ui/error-text';
 import { passwordChangeBaseSchema } from '@/validations/user';
-import { changePassword } from '@/lib/actions/changePassword';
+import { changePassword } from '@/lib/actions/user/changePassword';
 import { SuccessText } from '@/components/ui/succes-text';
 import { Badge } from '@/components/ui/badge';
 
@@ -80,7 +80,7 @@ export function PasswordChangeForm() {
 
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto">
+      <Card className="h-fit w-full max-w-md mx-auto mt-8 md:mt-10">
         <CardHeader>
           <CardTitle>
             <h1>パスワード変更</h1>

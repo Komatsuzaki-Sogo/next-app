@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const commonSectionVariants = cva(
-  'min-h-[calc(100dvh-var(--header-height)-var(--footer-height))] px-4 mx-auto max-w-[var(--section-width)] py-6 md:py-10',
+  'min-h-[calc(100dvh-var(--header-height)-var(--footer-height))] px-4 mx-auto max-w-[var(--section-width)] py-6 md:py-10 reset-margin',
   {
     variants: {
       center: {

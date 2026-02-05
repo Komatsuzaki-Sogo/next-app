@@ -12,7 +12,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { useActionState, useState } from 'react';
-import { authenticate } from '@/lib/actions/authenticate';
+import { authenticate } from '@/lib/actions/user/authenticate';
 import { loginSchema } from '@/validations/user';
 import { InputPassword } from '@/components/ui/input-password';
 import { ErrorText } from '@/components/ui/error-text';
