@@ -19,7 +19,7 @@ export function Setting({ session }: { session: Session }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="font-medium">
-          <User size={28} color="var(--foreground)" />
+          <User className="size-5" color="var(--foreground)" />
           {session.user?.name}
         </Button>
       </DropdownMenuTrigger>

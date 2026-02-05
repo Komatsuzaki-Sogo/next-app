@@ -16,6 +16,7 @@ import { signupBaseSchema } from '@/validations/user';
 import { InputPassword } from '@/components/ui/input-password';
 import { ErrorText } from '@/components/ui/error-text';
 import { Badge } from '@/components/ui/badge';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 type ClientErrors = {
   name?: string;
@@ -201,11 +202,11 @@ export function SignupForm() {
                 )}
               </Field>
               <Field>
-                <div className="text-center">
+                <ButtonGroup className="justify-center">
                   <Button type="submit" size="lg">
                     サインアップ
                   </Button>
-                </div>
+                </ButtonGroup>
 
                 <FieldDescription className="text-center">
                   アカウントをお持ちの方は

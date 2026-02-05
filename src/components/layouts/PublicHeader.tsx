@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { House } from '@deemlol/next-icons';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -6,28 +7,39 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
+import { ButtonGroup } from '../ui/button-group';
 
 export function PublicHeader() {
   return (
-    <header className="border-b h-(--header-height) flex items-center">
+    <header className="h-(--header-height) flex items-center bg-background sticky top-0 z-100">
       <div className="w-full mx-auto px-4 flex items-center justify-between max-w-(--section-width)">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink asChild className="font-bold text-xl">
-                <Link href="/">Home</Link>
+                <Link href="/">
+                  <House
+                    className="size-6"
+                    color="var(--foreground)"
+                    xlinkTitle="サイトトップ"
+                  />
+                </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="flex items-center gap-4">
-          <Button variant="outline" asChild>
-            <Link href="/login">ログイン</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/signup">サインアップ</Link>
-          </Button>
-        </div>
+        <ButtonGroup>
+          <ButtonGroup>
+            <Button variant="outline" asChild>
+              <Link href="/login">ログイン</Link>
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button asChild>
+              <Link href="/signup">サインアップ</Link>
+            </Button>
+          </ButtonGroup>
+        </ButtonGroup>
       </div>
     </header>
   );

@@ -11,6 +11,7 @@ import { passwordChangeBaseSchema } from '@/validations/user';
 import { changePassword } from '@/lib/actions/user/changePassword';
 import { SuccessText } from '@/components/ui/succes-text';
 import { Badge } from '@/components/ui/badge';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 type ClientErrors = {
   password?: string;
@@ -172,11 +173,11 @@ export function PasswordChangeForm() {
               </Field>
 
               <Field>
-                <div className="text-center">
+                <ButtonGroup className="justify-center">
                   <Button type="submit" size="lg">
                     パスワードを変更する
                   </Button>
-                </div>
+                </ButtonGroup>
               </Field>
             </FieldGroup>
           </form>
