@@ -1,4 +1,4 @@
-export default function ErrorText({
+export function ErrorText({
   children,
 }: Readonly<{
   children: React.ReactNode;

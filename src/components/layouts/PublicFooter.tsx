@@ -1,4 +1,4 @@
-export default function PublicFooter() {
+export function PublicFooter() {
   return (
     <footer className="border-b h-(--footer-height) flex items-center">
       <div className="w-full mx-auto px-4 flex items-center justify-between max-w-(--section-width)">

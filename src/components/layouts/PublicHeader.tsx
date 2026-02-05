@@ -7,7 +7,7 @@ import {
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
 
-export default function PublicHeader() {
+export function PublicHeader() {
   return (
     <header className="border-b h-(--header-height) flex items-center">
       <div className="w-full mx-auto px-4 flex items-center justify-between max-w-(--section-width)">

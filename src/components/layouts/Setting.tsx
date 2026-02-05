@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { signOut } from '@/auth';
 import { Session } from 'next-auth';
 
-export default function Setting({ session }: { session: Session }) {
+export function Setting({ session }: { session: Session }) {
   const handleLogout = async () => {
     'use server';
     await signOut();

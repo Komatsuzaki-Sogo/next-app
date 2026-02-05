@@ -1,4 +1,4 @@
-export default function SuccessText({
+export function SuccessText({
   children,
 }: Readonly<{
   children: React.ReactNode;

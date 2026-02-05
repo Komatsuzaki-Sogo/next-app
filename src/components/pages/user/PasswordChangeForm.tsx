@@ -3,13 +3,13 @@
 import { useActionState, useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import LoadingUI from '@/components/ui/loading';
-import InputPassword from '@/components/ui/input-password';
+import { LoadingUI } from '@/components/ui/loading';
+import { InputPassword } from '@/components/ui/input-password';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
-import ErrorText from '@/components/ui/error-text';
+import { ErrorText } from '@/components/ui/error-text';
 import { passwordChangeBaseSchema } from '@/validations/user';
 import { changePassword } from '@/lib/actions/changePassword';
-import SuccessText from '@/components/ui/succes-text';
+import { SuccessText } from '@/components/ui/succes-text';
 import { Badge } from '@/components/ui/badge';
 
 type ClientErrors = {
@@ -18,7 +18,7 @@ type ClientErrors = {
   newConfirmPassword?: string;
 };
 
-export default function PasswordChangeForm() {
+export function PasswordChangeForm() {
   const [state, formAction, isPending] = useActionState(changePassword, {
     success: false,
     errors: {},

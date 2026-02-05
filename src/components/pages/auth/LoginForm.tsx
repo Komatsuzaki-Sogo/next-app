@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import LoadingUI from '../../ui/loading';
+import { LoadingUI } from '../../ui/loading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Field,
@@ -14,8 +14,8 @@ import {
 import { useActionState, useState } from 'react';
 import { authenticate } from '@/lib/actions/authenticate';
 import { loginSchema } from '@/validations/user';
-import InputPassword from '@/components/ui/input-password';
-import ErrorText from '@/components/ui/error-text';
+import { InputPassword } from '@/components/ui/input-password';
+import { ErrorText } from '@/components/ui/error-text';
 import { Badge } from '@/components/ui/badge';
 
 type ClientErrors = {
@@ -23,7 +23,7 @@ type ClientErrors = {
   password?: string;
 };
 
-export default function LoginForm() {
+export function LoginForm() {
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined,

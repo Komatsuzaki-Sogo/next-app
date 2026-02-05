@@ -13,7 +13,7 @@ type Props = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function InputPassword({
+export function InputPassword({
   id,
   name,
   placeholder,

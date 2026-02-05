@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import LoadingUI from '../../ui/loading';
+import { LoadingUI } from '../../ui/loading';
 import {
   Field,
   FieldDescription,
@@ -13,8 +13,8 @@ import {
 import { useActionState, useState } from 'react';
 import { createUser } from '@/lib/actions/createUser';
 import { signupBaseSchema } from '@/validations/user';
-import InputPassword from '@/components/ui/input-password';
-import ErrorText from '@/components/ui/error-text';
+import { InputPassword } from '@/components/ui/input-password';
+import { ErrorText } from '@/components/ui/error-text';
 import { Badge } from '@/components/ui/badge';
 
 type ClientErrors = {
@@ -24,7 +24,7 @@ type ClientErrors = {
   confirmPassword?: string;
 };
 
-export default function SignupForm() {
+export function SignupForm() {
   const [state, formAction, isPending] = useActionState(createUser, {
     success: false,
     errors: {},

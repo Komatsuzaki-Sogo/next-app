@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
-import CommonSection from '@/components/layouts/CommonSection';
+import { CommonSection } from '@/components/layouts/CommonSection';
 
 export default async function UserPage() {
   const session = await auth();

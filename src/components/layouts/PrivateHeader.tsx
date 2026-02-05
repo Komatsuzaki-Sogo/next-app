@@ -5,10 +5,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
-import Setting from './Setting';
+import { Setting } from './Setting';
 import { auth } from '@/auth';
 
-export default async function PrivateHeader() {
+export async function PrivateHeader() {
   const session = await auth();
   if (!session?.user?.email) throw new Error('不正なリクエストです');
 

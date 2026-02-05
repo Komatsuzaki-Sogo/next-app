@@ -20,10 +20,7 @@ type CommonSectionProps = {
   children: React.ReactNode;
 } & VariantProps<typeof commonSectionVariants>;
 
-export default function CommonSection({
-  children,
-  center,
-}: CommonSectionProps) {
+export function CommonSection({ children, center }: CommonSectionProps) {
   return (
     <main className={cn(commonSectionVariants({ center }))}>{children}</main>
   );

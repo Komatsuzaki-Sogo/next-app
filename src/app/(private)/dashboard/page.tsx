@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { getOwnPosts } from '@/lib/ownPost';
-import CommonSection from '@/components/layouts/CommonSection';
+import { CommonSection } from '@/components/layouts/CommonSection';
 
 export default async function DashBoardPage() {
   const session = await auth();
