@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import { LoadingUI } from '@/components/ui/loading';
 import { InputPassword } from '@/components/ui/input-password';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { ErrorText } from '@/components/ui/error-text';
+import { TextError } from '@/components/ui/text-error';
 import { passwordChangeBaseSchema } from '@/validations/user';
 import { changePassword } from '@/lib/actions/user/changePassword';
-import { SuccessText } from '@/components/ui/succes-text';
+import { TextSuccess } from '@/components/ui/text-success';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
 
@@ -92,18 +92,18 @@ export function PasswordChangeForm() {
           <form action={submit} className="flex flex-col gap-6">
             <FieldGroup>
               {state.errors.password && (
-                <ErrorText>{state.errors.password.join(',')}</ErrorText>
+                <TextError>{state.errors.password.join(',')}</TextError>
               )}
               {state.errors.newPassword && (
-                <ErrorText>{state.errors.newPassword.join(',')}</ErrorText>
+                <TextError>{state.errors.newPassword.join(',')}</TextError>
               )}
               {state.errors.newConfirmPassword && (
-                <ErrorText>
+                <TextError>
                   {state.errors.newConfirmPassword.join(',')}
-                </ErrorText>
+                </TextError>
               )}
               {state.success && (
-                <SuccessText>パスワードを変更しました</SuccessText>
+                <TextSuccess>パスワードを変更しました</TextSuccess>
               )}
 
               <Field>
@@ -124,7 +124,7 @@ export function PasswordChangeForm() {
                   handleBlur={handleBlur}
                 />
                 {clientErrors.password && (
-                  <ErrorText>{clientErrors.password}</ErrorText>
+                  <TextError>{clientErrors.password}</TextError>
                 )}
               </Field>
 
@@ -146,7 +146,7 @@ export function PasswordChangeForm() {
                   handleBlur={handleBlur}
                 />
                 {clientErrors.newPassword && (
-                  <ErrorText>{clientErrors.newPassword}</ErrorText>
+                  <TextError>{clientErrors.newPassword}</TextError>
                 )}
               </Field>
 
@@ -168,12 +168,12 @@ export function PasswordChangeForm() {
                   handleBlur={handleBlur}
                 />
                 {clientErrors.newConfirmPassword && (
-                  <ErrorText>{clientErrors.newConfirmPassword}</ErrorText>
+                  <TextError>{clientErrors.newConfirmPassword}</TextError>
                 )}
               </Field>
 
               <Field>
-                <ButtonGroup className="justify-center">
+                <ButtonGroup marginTop="none">
                   <Button type="submit" size="lg">
                     パスワードを変更する
                   </Button>

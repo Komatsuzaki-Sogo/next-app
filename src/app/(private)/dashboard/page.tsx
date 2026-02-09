@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import { getOwnPosts } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
+import { HeadingLevel01 } from '@/components/ui/heading-level01';
 
 export default async function DashBoardPage() {
   const session = await auth();
@@ -13,9 +14,7 @@ export default async function DashBoardPage() {
   console.log(posts);
   return (
     <CommonSection>
-      <div className="flex justify-between">
-        <h1 className="text-2xl foont-bold mb-4">パスワード管理一覧</h1>
-      </div>
+      <HeadingLevel01>ダッシュボード</HeadingLevel01>
 
       {posts.length > 0 ? (
         <table className="table-auto w-full border-collapse border mt-8">

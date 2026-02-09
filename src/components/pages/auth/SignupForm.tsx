@@ -14,7 +14,7 @@ import { useActionState, useState } from 'react';
 import { createUser } from '@/lib/actions/user/createUser';
 import { signupBaseSchema } from '@/validations/user';
 import { InputPassword } from '@/components/ui/input-password';
-import { ErrorText } from '@/components/ui/error-text';
+import { TextError } from '@/components/ui/text-error';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
 
@@ -100,16 +100,16 @@ export function SignupForm() {
           <form action={submit} className="flex flex-col gap-6">
             <FieldGroup>
               {state.errors.name && (
-                <ErrorText>{state.errors.name.join(',')}</ErrorText>
+                <TextError>{state.errors.name.join(',')}</TextError>
               )}
               {state.errors.password && (
-                <ErrorText>{state.errors.password.join(',')}</ErrorText>
+                <TextError>{state.errors.password.join(',')}</TextError>
               )}
               {state.errors.email && (
-                <ErrorText>{state.errors.email.join(',')}</ErrorText>
+                <TextError>{state.errors.email.join(',')}</TextError>
               )}
               {state.errors.confirmPassword && (
-                <ErrorText>{state.errors.confirmPassword.join(',')}</ErrorText>
+                <TextError>{state.errors.confirmPassword.join(',')}</TextError>
               )}
               <Field>
                 <FieldLabel htmlFor="name">
@@ -131,7 +131,7 @@ export function SignupForm() {
                   onBlur={handleBlur}
                 />
                 {clientErrors.name && (
-                  <ErrorText>{clientErrors.name}</ErrorText>
+                  <TextError>{clientErrors.name}</TextError>
                 )}
               </Field>
               <Field>
@@ -154,7 +154,7 @@ export function SignupForm() {
                   onBlur={handleBlur}
                 />
                 {clientErrors.email && (
-                  <ErrorText>{clientErrors.email}</ErrorText>
+                  <TextError>{clientErrors.email}</TextError>
                 )}
               </Field>
               <Field>
@@ -176,7 +176,7 @@ export function SignupForm() {
                   handleBlur={handleBlur}
                 />
                 {clientErrors.password && (
-                  <ErrorText>{clientErrors.password}</ErrorText>
+                  <TextError>{clientErrors.password}</TextError>
                 )}
               </Field>
               <Field>
@@ -198,11 +198,11 @@ export function SignupForm() {
                   handleBlur={handleBlur}
                 />
                 {clientErrors.confirmPassword && (
-                  <ErrorText>{clientErrors.confirmPassword}</ErrorText>
+                  <TextError>{clientErrors.confirmPassword}</TextError>
                 )}
               </Field>
               <Field>
-                <ButtonGroup className="justify-center">
+                <ButtonGroup marginTop="none">
                   <Button type="submit" size="lg">
                     サインアップ
                   </Button>

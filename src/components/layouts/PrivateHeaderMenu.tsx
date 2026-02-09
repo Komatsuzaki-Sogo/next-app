@@ -28,10 +28,13 @@ export function PrivateHeaderMenu({ session }: { session: Session }) {
         <NavigationMenuItem>
           <NavigationMenuLink
             asChild
-            className="flex flex-row items-center gap-1 font-bold"
+            className="flex flex-row items-center gap-1 font-medium"
           >
             <Link href="/dashboard">
-              <Clipboard className="size-5" color="var(--foreground)" />
+              <Clipboard
+                className="size-5 max-[370px]:hidden"
+                color="var(--foreground)"
+              />
               ダッシュボード
             </Link>
           </NavigationMenuLink>
@@ -41,10 +44,13 @@ export function PrivateHeaderMenu({ session }: { session: Session }) {
           <NavigationMenuTrigger
             className={
               navigationMenuTriggerStyle() +
-              'flex gap-1 font-bold cursor-pointer'
+              'flex gap-1 font-medium cursor-pointer'
             }
           >
-            <User className="size-5" color="var(--foreground)" />
+            <User
+              className="size-5 max-[370px]:hidden"
+              color="var(--foreground)"
+            />
             {session.user?.name}
           </NavigationMenuTrigger>
 
@@ -54,7 +60,7 @@ export function PrivateHeaderMenu({ session }: { session: Session }) {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/user"
-                    className="flex flex-row item-center items-start gap-2 font-bold"
+                    className="flex flex-row item-center items-start gap-2 font-medium"
                   >
                     <Info color="var(--foreground)" className="size-5" />
                     ユーザー情報
@@ -66,7 +72,7 @@ export function PrivateHeaderMenu({ session }: { session: Session }) {
                 <NavigationMenuLink asChild>
                   <Link
                     href="/user/password"
-                    className="flex flex-row item-center items-start gap-2 font-bold"
+                    className="flex flex-row item-center items-start gap-2 font-medium"
                   >
                     <Tool color="var(--foreground)" className="size-5" />
                     パスワード変更
@@ -77,7 +83,7 @@ export function PrivateHeaderMenu({ session }: { session: Session }) {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="flex flex-row item-center items-start gap-2 w-full font-bold rounded-md px-3 py-2 text-sm text-destructive hover:bg-accent"
+                  className="flex flex-row item-center items-start gap-2 w-full font-medium rounded-md px-3 py-2 text-sm text-destructive hover:bg-accent"
                 >
                   <LogOut className="size-5" />
                   ログアウト

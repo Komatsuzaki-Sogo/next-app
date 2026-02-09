@@ -83,6 +83,7 @@
   --section-width: 1000px;
   --header-height: 60px;
   --footer-height: 76px;
+  font-family: var(--font-noto-sans-jp), sans-serif;
 }
 
 .dark {
@@ -133,4 +134,8 @@
 }
 .reset-margin > *:last-child {
   margin-bottom: 0 !important;
+}
+
+.headingResetMargin + * {
+  margin-top: 0 !important;
 }

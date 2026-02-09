@@ -7,7 +7,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@/components/ui/navigation-menu';
-import { ButtonGroup } from '../ui/button-group';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 export function PublicHeader() {
   return (
@@ -16,7 +16,7 @@ export function PublicHeader() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className="font-bold text-xl">
+              <NavigationMenuLink asChild className="font-medium text-xl">
                 <Link href="/">
                   <House
                     className="size-6"
@@ -28,13 +28,13 @@ export function PublicHeader() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
-        <ButtonGroup>
-          <ButtonGroup>
+        <ButtonGroup marginTop="none" justifyCenter="none">
+          <ButtonGroup marginTop="none" justifyCenter="none">
             <Button variant="outline" asChild>
               <Link href="/login">ログイン</Link>
             </Button>
           </ButtonGroup>
-          <ButtonGroup>
+          <ButtonGroup marginTop="none" justifyCenter="none">
             <Button asChild>
               <Link href="/signup">サインアップ</Link>
             </Button>

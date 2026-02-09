@@ -15,7 +15,7 @@ import { useActionState, useState } from 'react';
 import { authenticate } from '@/lib/actions/user/authenticate';
 import { loginSchema } from '@/validations/user';
 import { InputPassword } from '@/components/ui/input-password';
-import { ErrorText } from '@/components/ui/error-text';
+import { TextError } from '@/components/ui/text-error';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
 
@@ -91,7 +91,7 @@ export function LoginForm() {
         <CardContent>
           <form action={submit} className="flex flex-col gap-6">
             <FieldGroup>
-              {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+              {errorMessage && <TextError>{errorMessage}</TextError>}
               <Field>
                 <FieldLabel htmlFor="email">
                   メールアドレス<Badge variant="required">必須</Badge>
@@ -112,7 +112,7 @@ export function LoginForm() {
                   onBlur={handleBlur}
                 />
                 {clientErrors.email && (
-                  <ErrorText>{clientErrors.email}</ErrorText>
+                  <TextError>{clientErrors.email}</TextError>
                 )}
               </Field>
 
@@ -135,12 +135,12 @@ export function LoginForm() {
                   handleBlur={handleBlur}
                 />
                 {clientErrors.password && (
-                  <ErrorText>{clientErrors.password}</ErrorText>
+                  <TextError>{clientErrors.password}</TextError>
                 )}
               </Field>
 
               <Field>
-                <ButtonGroup className="justify-center">
+                <ButtonGroup marginTop="none">
                   <Button type="submit" size="lg">
                     ログイン
                   </Button>
