@@ -3,7 +3,7 @@ import { UserInfo } from '@/components/pages/user/UserInfo';
 
 export default function UserPage() {
   return (
-    <CommonSection center>
+    <CommonSection>
       <UserInfo />
     </CommonSection>
   );

@@ -1,5 +1,7 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Plus } from '@deemlol/next-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -88,6 +90,17 @@ export function SignupForm() {
     formAction(formData);
   };
 
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // 画像プレビュー用URL生成
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  };
+
   return (
     <>
       <Card className="h-fit w-full max-w-md mx-auto">
@@ -111,6 +124,45 @@ export function SignupForm() {
               {state.errors.confirmPassword && (
                 <TextError>{state.errors.confirmPassword.join(',')}</TextError>
               )}
+              <Field>
+                <div className="flex flex-col gap-2 items-center justify-center">
+                  <div className="relative h-25 w-25">
+                    <Image
+                      src={previewUrl ?? '/img/avatar-placeholder.png'}
+                      alt="プロフィール画像"
+                      fill
+                      className="rounded-full object-cover"
+                      sizes="100px"
+                      priority
+                    />
+
+                    <FieldLabel
+                      htmlFor="profileImage"
+                      className="absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-primary text-primary-foreground shadow"
+                    >
+                      <Plus
+                        size={24}
+                        color="#FFFFFF"
+                        xlinkTitle="プロフィール画像を登録"
+                      />
+                    </FieldLabel>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Input
+                      id="profileImage"
+                      type="file"
+                      accept="image/*"
+                      name="profileImage"
+                      className="hidden"
+                      onChange={handleChange}
+                    />
+
+                    <p className="text-sm text-muted-foreground">
+                      JPG / PNG（最大 5MB）
+                    </p>
+                  </div>
+                </div>
+              </Field>
               <Field>
                 <FieldLabel htmlFor="name">
                   ユーザー名<Badge variant="required">必須</Badge>

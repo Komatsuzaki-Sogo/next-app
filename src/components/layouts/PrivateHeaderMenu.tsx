@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { User } from '@deemlol/next-icons';
+import Image from 'next/image';
 import { Info } from '@deemlol/next-icons';
 import { Tool } from '@deemlol/next-icons';
 import { LogOut } from '@deemlol/next-icons';
@@ -15,8 +15,28 @@ import {
 } from '@/components/ui/navigation-menu';
 import { signOut } from '@/auth';
 import { Session } from 'next-auth';
+import { prisma } from '@/lib/prisma';
 
-export function PrivateHeaderMenu({ session }: { session: Session }) {
+export async function PrivateHeaderMenu({ session }: { session: Session }) {
+  const userId = session?.user?.id;
+
+  if (!userId) {
+    throw new Error('不正なリクエストです');
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      profileImage: true,
+      name: true,
+      email: true,
+      createdAt: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error('ユーザーが存在しません');
+  }
   const handleLogout = async () => {
     'use server';
     await signOut();
@@ -44,13 +64,19 @@ export function PrivateHeaderMenu({ session }: { session: Session }) {
           <NavigationMenuTrigger
             className={
               navigationMenuTriggerStyle() +
-              'flex gap-1 font-medium cursor-pointer'
+              'flex gap-1 item-center font-medium cursor-pointer'
             }
           >
-            <User
-              className="size-5 max-[370px]:hidden"
-              color="var(--foreground)"
-            />
+            <div className="relative size-8 mx-auto">
+              <Image
+                src={user.profileImage ?? '/img/avatar-placeholder.png'}
+                alt="プロフィール画像"
+                fill
+                className="rounded-full object-cover"
+                sizes="100px"
+                priority
+              />
+            </div>
             {session.user?.name}
           </NavigationMenuTrigger>
 

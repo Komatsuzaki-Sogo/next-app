@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import {
@@ -20,6 +21,7 @@ export async function UserInfo() {
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
+      profileImage: true,
       name: true,
       email: true,
       createdAt: true,
@@ -40,7 +42,17 @@ export async function UserInfo() {
         </CardHeader>
 
         <CardContent>
-          <Table>
+          <div className="relative h-25 w-25 mx-auto">
+            <Image
+              src={user.profileImage ?? '/img/avatar-placeholder.png'}
+              alt="プロフィール画像"
+              fill
+              className="rounded-full object-cover"
+              sizes="100px"
+              priority
+            />
+          </div>
+          <Table className="mt-2">
             <TableBody>
               <TableRow>
                 <TableHead className="font-medium w-30">ユーザー名</TableHead>

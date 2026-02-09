@@ -3,7 +3,7 @@ import { CommonSection } from '@/components/layouts/CommonSection';
 
 export default function PasswordPage() {
   return (
-    <CommonSection center>
+    <CommonSection>
       <PasswordChangeForm />
     </CommonSection>
   );

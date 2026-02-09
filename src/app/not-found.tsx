@@ -19,7 +19,7 @@ export default async function NotFound() {
   return (
     <>
       {session?.user?.email ? <PrivateHeader /> : <PublicHeader />}
-      <CommonSection center>
+      <CommonSection>
         <HeadingLevel01 subText="404">Not Found</HeadingLevel01>
         <TextBase center>
           <p>

@@ -13,6 +13,7 @@ async function main() {
   // ユーザー作成
   const user = await prisma.user.create({
     data: {
+      profileImage: null,
       email: 'test@example.com',
       name: 'Test User',
       password: hashedPassword,

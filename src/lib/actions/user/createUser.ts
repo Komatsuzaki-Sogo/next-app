@@ -6,6 +6,7 @@ import bcryptjs from 'bcryptjs';
 import { signIn } from '@/auth';
 import { redirect } from 'next/navigation';
 import { ZodError } from 'zod';
+import { saveImage } from '@/lib/image';
 
 type ActionState = {
   success: boolean;
@@ -60,6 +61,26 @@ export async function createUser(
     });
   }
 
+  // プロフィール画像の保存
+  let imageUrl: string | null = null;
+
+  const profileImage = formData.get('profileImage');
+
+  if (
+    profileImage instanceof File &&
+    profileImage.size > 0 &&
+    profileImage.name !== 'undefined'
+  ) {
+    const newImageUrl = await saveImage(profileImage);
+    if (!newImageUrl) {
+      return {
+        success: false,
+        errors: { image: ['画像の保存に失敗しました'] },
+      };
+    }
+    imageUrl = newImageUrl;
+  }
+
   // DBに登録
   const hashedPassword = await bcryptjs.hash(rawFormData.password, 12);
 
@@ -68,6 +89,7 @@ export async function createUser(
       name: rawFormData.name,
       email: rawFormData.email,
       password: hashedPassword,
+      profileImage: imageUrl,
     },
   });
 
