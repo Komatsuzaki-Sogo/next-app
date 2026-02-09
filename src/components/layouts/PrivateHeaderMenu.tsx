@@ -52,10 +52,10 @@ export async function PrivateHeaderMenu({ session }: { session: Session }) {
           >
             <Link href="/dashboard">
               <Clipboard
-                className="size-5 max-[370px]:hidden"
+                className="size-5 max-[400px]:size-6"
                 color="var(--foreground)"
               />
-              ダッシュボード
+              <span className="max-[400px]:hidden">ダッシュボード</span>
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
@@ -77,7 +77,7 @@ export async function PrivateHeaderMenu({ session }: { session: Session }) {
                 priority
               />
             </div>
-            {session.user?.name}
+            <span className="max-[400px]:hidden">{session.user?.name}</span>
           </NavigationMenuTrigger>
 
           <NavigationMenuContent>
