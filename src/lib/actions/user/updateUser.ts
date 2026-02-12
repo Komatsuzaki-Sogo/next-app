@@ -53,8 +53,6 @@ export async function updateUser(
     imageUrl = newImageUrl;
   }
 
-  console.log('imageUrl', imageUrl);
-  console.log('currentImage', currentImage);
   // 変更なしチェック
   if (name === currentName && imageUrl === currentImage) {
     return {
