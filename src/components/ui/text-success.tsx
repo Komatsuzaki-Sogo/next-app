@@ -9,11 +9,12 @@ const textStrong = cva('font-normal');
 
 type TextProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
-export function TextSuccess({ children }: TextProps) {
+export function TextSuccess({ children, className }: TextProps) {
   return (
-    <p className={cn(textWrapper())}>
+    <p className={cn(textWrapper(), className)}>
       <strong className={cn(textStrong())}>{children}</strong>
     </p>
   );

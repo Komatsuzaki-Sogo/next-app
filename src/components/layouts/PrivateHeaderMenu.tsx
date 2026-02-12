@@ -77,7 +77,7 @@ export async function PrivateHeaderMenu({ session }: { session: Session }) {
                 priority
               />
             </div>
-            <span className="max-[400px]:hidden">{session.user?.name}</span>
+            <span className="max-[400px]:hidden">{user?.name}</span>
           </NavigationMenuTrigger>
 
           <NavigationMenuContent>
