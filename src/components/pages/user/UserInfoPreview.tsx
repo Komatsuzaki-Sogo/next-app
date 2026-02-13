@@ -34,6 +34,14 @@ export default function UserInfoPreview({ user }: UserProps) {
             <TableHead>作成日</TableHead>
             <TableCell>{user.createdAt.toLocaleDateString('ja-JP')}</TableCell>
           </TableRow>
+          {user.createdAt.getTime() !== user.updatedAt.getTime() && (
+            <TableRow>
+              <TableHead>最終更新日</TableHead>
+              <TableCell>
+                {user.updatedAt.toLocaleDateString('ja-JP')}
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </>

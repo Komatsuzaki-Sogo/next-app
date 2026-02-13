@@ -16,6 +16,7 @@ export async function UserInfo() {
       name: true,
       email: true,
       createdAt: true,
+      updatedAt: true,
     },
   });
 
