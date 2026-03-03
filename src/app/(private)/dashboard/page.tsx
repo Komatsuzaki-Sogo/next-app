@@ -1,6 +1,17 @@
 import { auth } from '@/auth';
 import { getOwnPosts } from '@/lib/ownPost';
-export default async function DashBoardPage() {
+import { CommonSection } from '@/components/layouts/CommonSection';
+import { HeadingLevel01 } from '@/components/ui/heading-level01';
+
+type SearchParams = {
+  search?: string;
+};
+
+export default async function DashBoardPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
   const session = await auth();
   const userId = session?.user?.id;
   if (!session?.user?.email || !userId) {
@@ -8,12 +19,13 @@ export default async function DashBoardPage() {
   }
 
   const posts = await getOwnPosts(userId);
-  console.log(posts);
+
+  const resolvedSearchParams = await searchParams;
+  const query = resolvedSearchParams.search || '';
+  console.log('query', query);
   return (
-    <div className="p-4">
-      <div className="flex justify-between">
-        <h1 className="text-2xl foont-bold mb-4">パスワード管理一覧</h1>
-      </div>
+    <CommonSection>
+      <HeadingLevel01>ダッシュボード</HeadingLevel01>
 
       {posts.length > 0 ? (
         <table className="table-auto w-full border-collapse border mt-8">
@@ -43,6 +55,6 @@ export default async function DashBoardPage() {
           <b>データがありません</b>
         </p>
       )}
-    </div>
+    </CommonSection>
   );
 }

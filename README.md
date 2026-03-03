@@ -15,3 +15,12 @@ npm run dev
 ## deploy url
 
 https://password-managed.vercel.app
+
+## Prisma flow
+
+// マイグレーション(テーブル作成)
+npx prisma migrate dev --name init
+// シード実行(ダミーデータ)
+npx prisma db seed
+// prisma クライアント再作成
+npx prisma generate

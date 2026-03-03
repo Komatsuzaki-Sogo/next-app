@@ -1,36 +1,54 @@
+'use client';
+
 import { useState } from 'react';
+import { Eye } from '@deemlol/next-icons';
+import { EyeOff } from '@deemlol/next-icons';
 import { Input } from '@/components/ui/input';
 
-type InputPasswordProps = {
-  id?: string;
-  name?: string;
+type Props = {
+  id: string;
+  name: string;
+  placeholder?: string;
   required?: boolean;
-  handleBlur?: React.FocusEventHandler<HTMLInputElement>;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export default function InputPassword({
+export function InputPassword({
   id,
   name,
+  placeholder,
   required,
   handleBlur,
-}: InputPasswordProps) {
+  value,
+  onChange,
+}: Props) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="relative">
       <Input
         id={id}
-        type={showPassword ? 'text' : 'password'}
         name={name}
+        placeholder={placeholder}
+        type={showPassword ? 'text' : 'password'}
         required={required}
+        value={value}
+        onChange={onChange}
         onBlur={handleBlur}
+        className="pr-10"
       />
       <button
         type="button"
         onClick={() => setShowPassword((prev) => !prev)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700"
+        className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500 hover:text-gray-700 p-2"
       >
-        {showPassword ? '非表示' : '表示'}
+        {showPassword ? (
+          <Eye size={16} className="text-gray-700" xlinkTitle="表示" />
+        ) : (
+          <EyeOff size={16} className="text-gray-700" xlinkTitle="非表示" />
+        )}
       </button>
     </div>
   );

@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -47,6 +47,7 @@
 }
 
 :root {
+  --spacing: 4px;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -79,6 +80,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --section-width: 1000px;
+  --header-height: 72px;
+  --footer-height: 76px;
+  font-family: var(--font-noto-sans-jp), sans-serif;
 }
 
 .dark {
@@ -122,4 +127,15 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.reset-margin > *:first-child {
+  margin-top: 0 !important;
+}
+.reset-margin > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.headingResetMargin + * {
+  margin-top: 0 !important;
 }

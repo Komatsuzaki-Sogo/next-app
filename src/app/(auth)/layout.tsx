@@ -1,4 +1,5 @@
-import PublicHeader from '@/components/layouts/PublicHeader';
+import { PublicFooter } from '@/components/layouts/PublicFooter';
+import { PublicHeader } from '@/components/layouts/PublicHeader';
 
 export default function AuthLayout({
   children,
@@ -8,9 +9,8 @@ export default function AuthLayout({
   return (
     <>
       <PublicHeader />
-      <div className="min-h-screen flex items-center justify-center p-4">
-        {children}
-      </div>
+      {children}
+      <PublicFooter />
     </>
   );
 }

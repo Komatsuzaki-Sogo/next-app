@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function LoadingUI() {
+export function LoadingUI() {
   return (
     <div className="fixed inset-0 z-[100] bg-black/40 w-screen h-screen flex items-center justify-center">
       <div
