@@ -25,7 +25,7 @@ export default async function DashBoardPage({
   console.log('query', query);
   return (
     <CommonSection>
-      <HeadingLevel01>ダッシュボード</HeadingLevel01>
+      <HeadingLevel01>{query} の検索結果</HeadingLevel01>
 
       {posts.length > 0 ? (
         <table className="table-auto w-full border-collapse border mt-8">
