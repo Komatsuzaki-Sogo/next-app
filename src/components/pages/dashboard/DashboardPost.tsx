@@ -21,12 +21,12 @@ export function DashboardPost({ post }: PostCardProps) {
       await navigator.clipboard.writeText(text);
 
       // カスタム Toaster の icons.success が呼び出されます
-      toast.success(`${label}をコピーしました`, {
+      toast.success(`${label}をコピーしました。`, {
         description: 'クリップボードに保存されました。',
       });
     } catch (error) {
-      console.error('コピーに失敗しました:', error);
-      toast.error('コピーに失敗しました');
+      console.error(error);
+      toast.error('コピーに失敗しました。');
     }
   };
 
