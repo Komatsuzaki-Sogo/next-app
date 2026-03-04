@@ -1,11 +1,15 @@
+import { CommonSection } from '@/components/layouts/CommonSection';
+
 export function PublicFooter() {
   return (
-    <footer className="border-b h-(--footer-height) flex items-center">
-      <div className="w-full mx-auto px-4 flex items-center justify-between max-w-(--section-width)">
-        <small className="block w-full  text-xs text-muted-foreground tracking-wide text-center">
-          Copyright &copy; ○○○○○○○○ All Rights Reserved.
-        </small>
-      </div>
+    <footer className="[grid-area:footer] h-(--footer-height) w-full">
+      <CommonSection py="none" fullHeight>
+        <div className="flex flex-col justify-center h-full">
+          <small className="block w-full text-xs text-muted-foreground tracking-wide text-center">
+            Copyright &copy; ○○○○○○○○ All Rights Reserved.
+          </small>
+        </div>
+      </CommonSection>
     </footer>
   );
 }

@@ -1,27 +1,57 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const commonSectionVariants = cva(
-  'min-h-[calc(100dvh-var(--header-height)-var(--footer-height))] px-4 mx-auto max-w-[var(--section-width)] py-6 md:py-10 reset-margin',
+const containerVariants = cva(
+  'grid grid-cols-[1fr_minmax(270px,var(--section-width))_1fr] w-full gap-x-4 md:gap-x-8',
   {
     variants: {
-      center: {
-        true: 'flex flex-col justify-center',
+      fullHeight: {
+        true: 'h-full',
         false: '',
       },
     },
     defaultVariants: {
-      center: false,
+      fullHeight: false,
     },
   },
 );
 
-type CommonSectionProps = {
-  children: React.ReactNode;
-} & VariantProps<typeof commonSectionVariants>;
+const contentVariants = cva('col-start-2 col-end-3 reset-margin', {
+  variants: {
+    py: {
+      default: 'py-6 md:py-8',
+      sm: 'py-4 md:py-6',
+      lg: 'py-8 md:py-10',
+      none: 'py-0',
+    },
+    fullHeight: {
+      true: 'h-full',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    py: 'default',
+    fullHeight: false,
+  },
+});
 
-export function CommonSection({ children, center }: CommonSectionProps) {
+type CommonSectionProps = React.ComponentPropsWithoutRef<'div'> &
+  VariantProps<typeof containerVariants> &
+  VariantProps<typeof contentVariants>;
+
+export function CommonSection({
+  children,
+  py,
+  fullHeight,
+  className,
+  ...props
+}: CommonSectionProps) {
   return (
-    <main className={cn(commonSectionVariants({ center }))}>{children}</main>
+    <div
+      className={cn(containerVariants({ fullHeight }), className)}
+      {...props}
+    >
+      <div className={contentVariants({ py, fullHeight })}>{children}</div>
+    </div>
   );
 }

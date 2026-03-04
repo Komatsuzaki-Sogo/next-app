@@ -82,8 +82,15 @@
   --sidebar-ring: oklch(0.708 0 0);
   --section-width: 1000px;
   --header-height: 72px;
-  --footer-height: 76px;
+  --footer-height: 72px;
   font-family: var(--font-noto-sans-jp), sans-serif;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --header-height: 96px;
+    --footer-height: 96px;
+  }
 }
 
 .dark {
