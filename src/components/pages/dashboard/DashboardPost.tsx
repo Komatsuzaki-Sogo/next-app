@@ -1,6 +1,6 @@
-'use client'; // イベントハンドラを使用するため追加
+'use client';
 
-import { Edit, Trash2, Copy } from '@deemlol/next-icons';
+import { Edit, Copy } from '@deemlol/next-icons';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,13 +14,13 @@ import {
 import type { PostCardProps } from '@/types/post';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
+import DeletePostDialog from './DeleteDashboardPostDialog';
 
 export function DashboardPost({ post }: PostCardProps) {
   const handleCopy = async (text: string, label: string) => {
     try {
       await navigator.clipboard.writeText(text);
 
-      // カスタム Toaster の icons.success が呼び出されます
       toast.success(`${label}をコピーしました。`, {
         description: 'クリップボードに保存されました。',
       });
@@ -43,9 +43,12 @@ export function DashboardPost({ post }: PostCardProps) {
             </Button>
           </ButtonGroup>
           <ButtonGroup marginTop="none" justifyCenter="none">
-            <Button variant="ghost" size="icon" aria-label="delete">
-              <Trash2 className="text-destructive size-6" />
-            </Button>
+            <DeletePostDialog
+              title={post.title}
+              onDelete={() => {
+                console.log('Delete post');
+              }}
+            />
           </ButtonGroup>
         </ButtonGroup>
       </CardHeader>
