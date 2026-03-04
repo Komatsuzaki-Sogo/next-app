@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { auth } from '@/auth';
-import { getOwnPosts } from '@/lib/ownPost';
+import { getPosts } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
 
 type SearchParams = {
-  search?: string;
+  keyword?: string;
 };
 
 export async function generateMetadata({
@@ -14,7 +14,7 @@ export async function generateMetadata({
   searchParams: Promise<SearchParams>;
 }): Promise<Metadata> {
   const resolvedSearchParams = await searchParams;
-  const query = resolvedSearchParams.search || '';
+  const query = resolvedSearchParams.keyword || '';
 
   const title = query
     ? `「${query}」の検索結果 | ダッシュボード`
@@ -38,9 +38,9 @@ export default async function DashBoardPage({
   }
 
   const resolvedSearchParams = await searchParams;
-  const query = resolvedSearchParams.search || '';
+  const query = resolvedSearchParams.keyword || '';
 
-  const posts = await getOwnPosts(userId);
+  const posts = await getPosts(userId, query);
 
   return (
     <CommonSection>

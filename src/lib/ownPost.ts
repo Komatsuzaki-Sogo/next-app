@@ -1,8 +1,31 @@
 import { prisma } from '@/lib/prisma';
-export async function getOwnPosts(userId: string) {
+import { Prisma } from '@prisma/client';
+
+const postSelect = {
+  id: true,
+  title: true,
+  email: true,
+  password: true,
+  published: true,
+  updatedAt: true,
+} satisfies Prisma.PostSelect;
+
+export async function getPosts(userId: string, query?: string) {
+  const filters: Prisma.PostWhereInput[] = [{ authorId: userId }];
+
+  if (query) {
+    filters.push({
+      OR: [
+        { title: { contains: query, mode: 'insensitive' } },
+        { email: { contains: query, mode: 'insensitive' } },
+        { password: { contains: query, mode: 'insensitive' } },
+      ],
+    });
+  }
+
   return await prisma.post.findMany({
     where: {
-      authorId: userId,
+      AND: filters,
     },
     select: {
       id: true,
@@ -16,18 +39,12 @@ export async function getOwnPosts(userId: string) {
   });
 }
 
-export async function getOwnPost(userId: string, postId: string) {
+export async function getPost(userId: string, postId: string) {
   return await prisma.post.findFirst({
     where: {
-      AND: [{ authorId: userId }, { id: postId }],
+      authorId: userId,
+      id: postId,
     },
-    select: {
-      id: true,
-      title: true,
-      email: true,
-      password: true,
-      published: true,
-      updatedAt: true,
-    },
+    select: postSelect,
   });
 }

@@ -4,6 +4,7 @@ export type Post = {
   email: string;
   password: string;
   createdAt: Date;
+  updatedAt: Date;
   author: {
     name: string;
   };

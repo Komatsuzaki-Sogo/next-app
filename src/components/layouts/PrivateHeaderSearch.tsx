@@ -19,7 +19,7 @@ export function PrivateHeaderSearch({ onSearch }: SearchBoxProps) {
     const value = search.trim();
 
     if (value) {
-      router.push(`/dashboard/search/?search=${encodeURIComponent(value)}`);
+      router.push(`/dashboard/search/?keyword=${encodeURIComponent(value)}`);
       onSearch?.();
     }
 

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 
 import { auth } from '@/auth';
-import { getOwnPosts } from '@/lib/ownPost';
+import { getPosts } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
 
@@ -24,7 +24,7 @@ export default async function DashBoardPage({
     throw new Error('不正なリクエストです');
   }
 
-  const posts = await getOwnPosts(userId);
+  const posts = await getPosts(userId);
 
   const resolvedSearchParams = await searchParams;
   const query = resolvedSearchParams.search || '';
