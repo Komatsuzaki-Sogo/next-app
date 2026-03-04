@@ -15,6 +15,7 @@ import type { PostCardProps } from '@/types/post';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import DeletePostDialog from './DeleteDashboardPostDialog';
+import Link from 'next/link';
 
 export function DashboardPost({ post }: PostCardProps) {
   const handleCopy = async (text: string, label: string) => {
@@ -38,8 +39,10 @@ export function DashboardPost({ post }: PostCardProps) {
         </CardTitle>
         <ButtonGroup marginTop="none" justifyCenter="none">
           <ButtonGroup marginTop="none" justifyCenter="none">
-            <Button variant="ghost" size="icon" aria-label="edit">
-              <Edit className="text-blue-500 size-6" />
+            <Button variant="ghost" size="icon" aria-label="edit" asChild>
+              <Link href={`/dashboard/${post.id}/edit`}>
+                <Edit className="text-blue-500 size-6" />
+              </Link>
             </Button>
           </ButtonGroup>
           <ButtonGroup marginTop="none" justifyCenter="none">
