@@ -1,3 +1,9 @@
+import type { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'ダッシュボード | パスワード管理アプリ',
+  description: 'パスワード管理アプリのダッシュボードページです。',
+};
+
 import { auth } from '@/auth';
 import { getOwnPosts } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
