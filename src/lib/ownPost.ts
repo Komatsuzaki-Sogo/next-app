@@ -7,6 +7,7 @@ const postSelect = {
   email: true,
   password: true,
   published: true,
+  createdAt: true,
   updatedAt: true,
 } satisfies Prisma.PostSelect;
 
@@ -32,6 +33,7 @@ export async function getPosts(userId: string, query?: string) {
       title: true,
       email: true,
       password: true,
+      createdAt: true,
       published: true,
       updatedAt: true,
     },

@@ -1,13 +1,17 @@
-export type Post = {
-  id: string;
-  title: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  author: {
-    name: string;
-  };
-};
+import { Prisma } from '@prisma/client';
 
-export type PostCardProps = { post: Post };
+export type DashboardPostType = Prisma.PostGetPayload<{
+  select: {
+    id: true;
+    title: true;
+    email: true;
+    password: true;
+    published: true;
+    createdAt: true;
+    updatedAt: true;
+  };
+}>;
+
+export type PostCardProps = {
+  post: DashboardPostType;
+};
