@@ -4,6 +4,7 @@ export type DashboardPostType = Prisma.PostGetPayload<{
   select: {
     id: true;
     title: true;
+    userName?: true;
     email: true;
     password: true;
     published: true;

@@ -52,24 +52,33 @@ export async function PrivateHeaderMenuPC({ session }: { session: Session }) {
                 </NavigationMenuLink>
               ) : (
                 <>
-                  <NavigationMenuTrigger
-                    className={`${navigationMenuTriggerStyle()} flex gap-1 items-center font-medium cursor-pointer`}
-                  >
-                    <div className="relative size-7 mx-auto">
-                      <Image
-                        src={user.profileImage ?? ASSETS.avatarPlaceholder}
-                        alt="プロフィール画像"
-                        fill
-                        className="rounded-full object-cover"
-                        sizes="20px"
-                        priority
-                      />
-                    </div>
-                    <span>{user.name}</span>
-                  </NavigationMenuTrigger>
+                  {menu.id === 'user-menu' ? (
+                    <NavigationMenuTrigger
+                      className={`${navigationMenuTriggerStyle()} flex gap-1 items-center font-medium cursor-pointer`}
+                    >
+                      <div className="relative size-7 mx-auto">
+                        <Image
+                          src={user.profileImage ?? ASSETS.avatarPlaceholder}
+                          alt="プロフィール画像"
+                          fill
+                          className="rounded-full object-cover"
+                          sizes="20px"
+                          priority
+                        />
+                      </div>
+                      <span>{user.name}</span>
+                    </NavigationMenuTrigger>
+                  ) : (
+                    <NavigationMenuTrigger
+                      className={`${navigationMenuTriggerStyle()} flex gap-1 items-center font-medium cursor-pointer`}
+                    >
+                      <Icon className="size-5" color="var(--foreground)" />
+                      <span>{menu.label}</span>
+                    </NavigationMenuTrigger>
+                  )}
 
                   <NavigationMenuContent>
-                    <ul className="w-46 p-2 space-y-1">
+                    <ul className="w-52 p-2 space-y-1">
                       {menu.items?.map((item, idx) => {
                         const SubIcon = item.icon;
                         const key = item.href ?? `menu-item-${idx}`;

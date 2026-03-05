@@ -4,6 +4,7 @@ import { Prisma } from '@prisma/client';
 const postSelect = {
   id: true,
   title: true,
+  userName: true,
   email: true,
   password: true,
   published: true,
@@ -28,15 +29,7 @@ export async function getPosts(userId: string, query?: string) {
     where: {
       AND: filters,
     },
-    select: {
-      id: true,
-      title: true,
-      email: true,
-      password: true,
-      createdAt: true,
-      published: true,
-      updatedAt: true,
-    },
+    select: postSelect,
     orderBy: { createdAt: 'desc' },
   });
 }

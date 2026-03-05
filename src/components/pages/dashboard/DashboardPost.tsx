@@ -59,12 +59,28 @@ export function DashboardPost({ post }: PostCardProps) {
       <CardContent>
         <Table className="text-sm">
           <TableBody>
+            {post.userName && (
+              <TableRow className="border-none">
+                <TableHead className="h-fit px-0 w-28 text-gray-500 font-medium">
+                  ユーザーID
+                </TableHead>
+                <TableCell className="py-1">
+                  <div className="flex items-center gap-1 group">
+                    <span className="break-all">{post.userName}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label="copy userName"
+                      onClick={() => handleCopy(post.userName!, 'ユーザーID')}
+                    >
+                      <Copy className="text-gray-400 size-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
             <TableRow className="border-none">
-              <TableHead className="h-fit px-0 w-28 md:w-56">
-                ユーザーネーム/
-                <br className="md:hidden" />
-                メールアドレス
-              </TableHead>
+              <TableHead className="h-fit px-0 w-28">メールアドレス</TableHead>
               <TableCell className="py-1">
                 <div className="flex items-center gap-1">
                   <span className="break-all">{post.email}</span>
@@ -80,9 +96,7 @@ export function DashboardPost({ post }: PostCardProps) {
               </TableCell>
             </TableRow>
             <TableRow className="border-none">
-              <TableHead className="h-fit px-0 w-28 md:w-56">
-                パスワード
-              </TableHead>
+              <TableHead className="h-fit px-0 w-28">パスワード</TableHead>
               <TableCell className="py-1">
                 <div className="flex items-center gap-1">
                   <span className="font-mono break-all">{post.password}</span>
