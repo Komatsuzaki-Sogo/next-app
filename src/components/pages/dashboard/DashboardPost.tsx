@@ -1,6 +1,7 @@
 'use client';
 
-import { Edit, Copy } from '@deemlol/next-icons';
+import { useState } from 'react';
+import { Edit, Copy, Eye, EyeOff } from '@deemlol/next-icons';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +19,8 @@ import DeletePostDialog from './DeleteDashboardPostDialog';
 import Link from 'next/link';
 
 export function DashboardPost({ post }: PostCardProps) {
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleCopy = async (text: string, label: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -99,15 +102,39 @@ export function DashboardPost({ post }: PostCardProps) {
               <TableHead className="h-fit px-0 w-28">パスワード</TableHead>
               <TableCell className="py-1">
                 <div className="flex items-center gap-1">
-                  <span className="font-mono break-all">{post.password}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon-sm"
-                    aria-label="copy password"
-                    onClick={() => handleCopy(post.password, 'パスワード')}
-                  >
-                    <Copy className="text-gray-500 size-4" />
-                  </Button>
+                  <span className="font-mono break-all">
+                    {showPassword ? post.password : '••••••••••••'}
+                  </span>
+                  <ButtonGroup marginTop="none" justifyCenter="none">
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      onClick={() => setShowPassword(!showPassword)}
+                      aria-label={
+                        showPassword ? 'Hide password' : 'Show password'
+                      }
+                    >
+                      {showPassword ? (
+                        <EyeOff
+                          className="text-gray-500 size-4"
+                          xlinkTitle="非表示"
+                        />
+                      ) : (
+                        <Eye
+                          className="text-gray-500 size-4"
+                          xlinkTitle="表示"
+                        />
+                      )}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label="copy password"
+                      onClick={() => handleCopy(post.password, 'パスワード')}
+                    >
+                      <Copy className="text-gray-500 size-4" />
+                    </Button>
+                  </ButtonGroup>
                 </div>
               </TableCell>
             </TableRow>

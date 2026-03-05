@@ -1,5 +1,7 @@
 'use client';
 
+import { useState, useActionState, useEffect } from 'react';
+import type { PostCardProps } from '@/types/post';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { LoadingUI } from '../../ui/loading';
@@ -10,13 +12,18 @@ import { TextError } from '@/components/ui/text-error';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
 
-export function CreateDashboardPost() {
+export function EditDashboardPost({ post }: PostCardProps) {
+  const [title, setTitle] = useState(post.title);
+  const [userName, setUserName] = useState(post.userName);
+  const [email, setEmail] = useState(post.email);
+  const [password, setPassword] = useState(post.password);
+
   return (
     <>
       <Card className="h-fit w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle>
-            <h1>新規作成</h1>
+            <h1>コンテンツの編集</h1>
           </CardTitle>
         </CardHeader>
 
@@ -32,6 +39,8 @@ export function CreateDashboardPost() {
                   type="text"
                   name="title"
                   placeholder="タイトルを入力"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                 />
               </Field>
@@ -43,7 +52,8 @@ export function CreateDashboardPost() {
                   type="text"
                   name="username"
                   placeholder="ユーザーIDを入力"
-                  required
+                  value={userName ?? ''}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </Field>
 
@@ -56,6 +66,8 @@ export function CreateDashboardPost() {
                   type="email"
                   name="email"
                   placeholder="メールアドレスを入力"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </Field>
@@ -68,6 +80,8 @@ export function CreateDashboardPost() {
                   id="password"
                   name="password"
                   placeholder="パスワードを入力"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </Field>
@@ -75,7 +89,7 @@ export function CreateDashboardPost() {
               <Field>
                 <ButtonGroup marginTop="none">
                   <Button type="submit" size="lg">
-                    新規作成
+                    編集を保存する
                   </Button>
                 </ButtonGroup>
               </Field>

@@ -86,12 +86,12 @@
   font-family: var(--font-noto-sans-jp), sans-serif;
 }
 
-@media (width >= 48rem) {
+/* @media (width >= 48rem) {
   :root {
     --header-height: 96px;
     --footer-height: 96px;
   }
-}
+} */
 
 .dark {
   --background: oklch(0.145 0 0);

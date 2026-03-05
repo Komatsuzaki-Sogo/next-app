@@ -1,4 +1,11 @@
-import { Info, Tool, LogOut, Clipboard, FilePlus } from '@deemlol/next-icons';
+import {
+  Info,
+  Tool,
+  LogOut,
+  Clipboard,
+  PlusCircle,
+  Search,
+} from '@deemlol/next-icons';
 
 export type NavItem = {
   id: string;
@@ -22,7 +29,8 @@ export const NAV_CONFIG: NavItem[] = [
     icon: Clipboard,
     items: [
       { href: '/dashboard', label: 'ダッシュボード一覧', icon: Clipboard },
-      { href: '/dashboard/create', label: '新規作成', icon: FilePlus },
+      { href: '/dashboard/create', label: '新規作成', icon: PlusCircle },
+      { href: '/dashboard/search', label: '検索', icon: Search },
     ],
   },
   {

@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default function CreatePage() {
   return (
     <CommonSection>
-      <HeadingLevel01>新規作成</HeadingLevel01>
       <CreateDashboardPost />
     </CommonSection>
   );

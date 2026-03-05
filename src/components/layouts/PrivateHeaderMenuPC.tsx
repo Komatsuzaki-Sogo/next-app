@@ -87,8 +87,9 @@ export async function PrivateHeaderMenuPC({ session }: { session: Session }) {
                           <li key={key}>
                             {item.isLogout ? (
                               <button
+                                type="button"
                                 onClick={handleLogout}
-                                className="flex flex-row item-center items-start gap-2 w-full font-medium rounded-md px-3 py-2 text-sm text-destructive hover:bg-accent"
+                                className="cursor-pointer flex flex-row item-center items-start gap-2 w-full font-medium rounded-md px-3 py-2 text-sm text-destructive hover:bg-accent"
                               >
                                 <SubIcon className="size-5" />
                                 {item.label}

@@ -1,6 +1,9 @@
 import { auth } from '@/auth';
 import { notFound } from 'next/navigation';
 import { getPost } from '@/lib/ownPost';
+import { CommonSection } from '@/components/layouts/CommonSection';
+import { Edit } from 'lucide-react';
+import { EditDashboardPost } from '@/components/pages/dashboard/EditDashboardPost';
 
 type Params = {
   params: Promise<{ id: string }>;
@@ -19,11 +22,8 @@ export default async function EditPage({ params }: Params) {
     notFound();
   }
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">投稿の編集</h1>
-      <div>{post.title}</div>
-      <div>{post.email}</div>
-      <div>{post.password}</div>
-    </div>
+    <CommonSection>
+      <EditDashboardPost post={post} />
+    </CommonSection>
   );
 }
