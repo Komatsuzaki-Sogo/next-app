@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Edit, Copy, Eye, EyeOff } from '@deemlol/next-icons';
+import { Copy, Eye, EyeOff } from '@deemlol/next-icons';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,8 +15,7 @@ import {
 import type { PostCardProps } from '@/types/post';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import DeletePostDialog from '../index/DeleteDashboardPostDialog';
-import Link from 'next/link';
+import { DashboardPostDropdownMenu } from './DashboardPostDropdownMenu';
 
 export function DashboardPost({ post }: PostCardProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,27 +35,11 @@ export function DashboardPost({ post }: PostCardProps) {
 
   return (
     <Card className="gap-3">
-      <CardHeader className="flex gap-2 justify-between">
+      <CardHeader className="flex gap-2 justify-between items-center">
         <CardTitle className="text-lg font-semibold text-gray-900 self-center">
           <h2>{post.title}</h2>
         </CardTitle>
-        <ButtonGroup marginTop="none" justifyCenter="none">
-          <ButtonGroup marginTop="none" justifyCenter="none">
-            <Button variant="ghost" size="icon" aria-label="edit" asChild>
-              <Link href={`/dashboard/${post.id}/edit`}>
-                <Edit className="text-blue-500 size-6" />
-              </Link>
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup marginTop="none" justifyCenter="none">
-            <DeletePostDialog
-              title={post.title}
-              onDelete={() => {
-                console.log('Delete post');
-              }}
-            />
-          </ButtonGroup>
-        </ButtonGroup>
+        <DashboardPostDropdownMenu post={post} />
       </CardHeader>
 
       <CardContent>

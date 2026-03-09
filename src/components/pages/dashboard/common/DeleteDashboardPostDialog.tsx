@@ -1,6 +1,4 @@
 'use client';
-
-import { Trash2 } from '@deemlol/next-icons';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,23 +8,23 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
 
 type DeletePostProps = {
+  isOpen: boolean;
   title: string;
+  onOpenChange: (open: boolean) => void;
   onDelete: () => void;
 };
 
-export default function DeletePostDialog({ title, onDelete }: DeletePostProps) {
+export function DeleteDashboardPostDialog({
+  isOpen,
+  title,
+  onOpenChange,
+  onDelete,
+}: DeletePostProps) {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="delete">
-          <Trash2 className="text-destructive size-6" />
-        </Button>
-      </AlertDialogTrigger>
+    <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}の削除</AlertDialogTitle>
