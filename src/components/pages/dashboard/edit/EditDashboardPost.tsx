@@ -6,17 +6,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { LoadingUI } from '../../../ui/loading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 import { InputPassword } from '@/components/ui/input-password';
 import { TextError } from '@/components/ui/text-error';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
+import { Switch } from '@/components/ui/switch';
 
 export function EditDashboardPost({ post }: PostCardProps) {
   const [title, setTitle] = useState(post.title);
   const [userName, setUserName] = useState(post.userName);
   const [email, setEmail] = useState(post.email);
   const [password, setPassword] = useState(post.password);
+  const [shared, setShared] = useState(post.shared);
 
   return (
     <>
@@ -84,6 +91,21 @@ export function EditDashboardPost({ post }: PostCardProps) {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+              </Field>
+
+              <Field className="gap-1">
+                <div className="flex items-center gap-2">
+                  <FieldLabel htmlFor="shared">共有可否</FieldLabel>
+                  <Switch
+                    id="shared"
+                    name="shared"
+                    checked={shared}
+                    onCheckedChange={setShared}
+                  />
+                </div>
+                <FieldDescription>
+                  オンにすると、URLを知っている人が内容を閲覧できるようになります。
+                </FieldDescription>
               </Field>
 
               <Field>
