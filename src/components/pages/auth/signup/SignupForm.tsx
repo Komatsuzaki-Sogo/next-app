@@ -5,7 +5,7 @@ import { Plus } from '@deemlol/next-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LoadingUI } from '../../ui/loading';
+import { LoadingUI } from '../../../ui/loading';
 import {
   Field,
   FieldDescription,
@@ -128,7 +128,7 @@ export function SignupForm() {
                 <div className="flex flex-col gap-2 items-center justify-center">
                   <div className="relative h-25 w-25">
                     <Image
-                      src={previewUrl ?? '/img/avatar-placeholder.png'}
+                      src={previewUrl || '/img/avatar-placeholder.png'}
                       alt="プロフィール画像"
                       fill
                       className="rounded-full object-cover"

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 
 import { CommonSection } from '@/components/layouts/CommonSection';
-import { SignupForm } from '@/components/pages/auth/SignupForm';
+import { SignupForm } from '@/components/pages/auth/signup/SignupForm';
 
 export default function SignupPage() {
   return (

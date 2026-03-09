@@ -10,11 +10,11 @@ import { auth } from '@/auth';
 import { getPosts } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
-import { DashboardPost } from '@/components/pages/dashboard/DashboardPost';
+import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
 import { TextBase } from '@/components/ui/text-base';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
-import { FloatingCreateButton } from '@/components/pages/dashboard/FloatingCreateButton';
+import { FloatingCreateButton } from '@/components/pages/dashboard/index/FloatingCreateButton';
 
 export default async function DashBoardPage() {
   const session = await auth();

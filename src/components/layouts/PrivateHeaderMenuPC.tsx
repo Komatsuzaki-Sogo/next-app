@@ -58,7 +58,7 @@ export async function PrivateHeaderMenuPC({ session }: { session: Session }) {
                     >
                       <div className="relative size-7 mx-auto">
                         <Image
-                          src={user.profileImage ?? ASSETS.avatarPlaceholder}
+                          src={user.profileImage || ASSETS.avatarPlaceholder}
                           alt="プロフィール画像"
                           fill
                           className="rounded-full object-cover"

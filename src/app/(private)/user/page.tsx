@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 
 import { CommonSection } from '@/components/layouts/CommonSection';
-import { UserInfo } from '@/components/pages/user/UserInfo';
+import { UserInfo } from '@/components/pages/user/index/UserInfo';
 
 export default function UserPage() {
   return (

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getPost } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { Edit } from 'lucide-react';
-import { EditDashboardPost } from '@/components/pages/dashboard/EditDashboardPost';
+import { EditDashboardPost } from '@/components/pages/dashboard/edit/EditDashboardPost';
 
 type Params = {
   params: Promise<{ id: string }>;

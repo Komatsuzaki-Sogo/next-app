@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   description: 'パスワード管理アプリのユーザー情報のパスワード変更ページです。',
 };
 
-import { PasswordChangeForm } from '@/components/pages/user/PasswordChangeForm';
+import { PasswordChangeForm } from '@/components/pages/user/password/PasswordChangeForm';
 import { CommonSection } from '@/components/layouts/CommonSection';
 
 export default function PasswordPage() {

@@ -1,5 +1,5 @@
 import { CommonSection } from '@/components/layouts/CommonSection';
-import { CreateDashboardPost } from '@/components/pages/dashboard/CreateDashboardPost';
+import { CreateDashboardPost } from '@/components/pages/dashboard/create/CreateDashboardPost';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
 import type { Metadata } from 'next';
 export const metadata: Metadata = {

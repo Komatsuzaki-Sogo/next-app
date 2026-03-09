@@ -15,7 +15,7 @@ import {
 import type { PostCardProps } from '@/types/post';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import DeletePostDialog from './DeleteDashboardPostDialog';
+import DeletePostDialog from '../index/DeleteDashboardPostDialog';
 import Link from 'next/link';
 
 export function DashboardPost({ post }: PostCardProps) {

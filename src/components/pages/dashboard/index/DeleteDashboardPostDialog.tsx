@@ -21,27 +21,6 @@ type DeletePostProps = {
 
 export default function DeletePostDialog({ title, onDelete }: DeletePostProps) {
   return (
-    // <AlertDialog>
-    //   <AlertDialogContent>
-    //     <AlertDialogHeader>
-    //       <AlertDialogTitle>{title}の削除</AlertDialogTitle>
-    //       <AlertDialogDescription>
-    //         こちらのコンテンツを本当に削除してもよろしいですか？
-    //         <br />
-    //         こちら操作は取り消せません。
-    //       </AlertDialogDescription>
-    //     </AlertDialogHeader>
-    //     <AlertDialogFooter>
-    //       <AlertDialogCancel>キャンセル</AlertDialogCancel>
-    //       <AlertDialogAction
-    //         onClick={onDelete}
-    //         className="bg-red-500 hover:bg-red-600"
-    //       >
-    //         削除する
-    //       </AlertDialogAction>
-    //     </AlertDialogFooter>
-    //   </AlertDialogContent>
-    // </AlertDialog>
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="ghost" size="icon" aria-label="delete">

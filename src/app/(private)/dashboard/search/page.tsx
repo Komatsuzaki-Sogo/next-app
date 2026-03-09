@@ -9,8 +9,8 @@ import { getPosts } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
 import { TextBase } from '@/components/ui/text-base';
-import { DashboardPost } from '@/components/pages/dashboard/DashboardPost';
-import { FilterDashboardPost } from '@/components/pages/dashboard/FilterDashboardPost';
+import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
+import { FilterDashboardPost } from '@/components/pages/dashboard/search/FilterDashboardPost';
 
 type SearchParams = {
   keyword?: string;

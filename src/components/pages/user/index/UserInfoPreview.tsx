@@ -9,11 +9,12 @@ import {
 import type { UserProps } from '@/types/user';
 
 export default function UserInfoPreview({ user }: UserProps) {
+  console.log(user.profileImage);
   return (
     <>
       <div className="relative h-25 w-25 mx-auto">
         <Image
-          src={user.profileImage ?? '/img/avatar-placeholder.png'}
+          src={user.profileImage || '/img/avatar-placeholder.png'}
           alt="プロフィール画像"
           fill
           className="rounded-full object-cover"
