@@ -7,7 +7,7 @@ export type DashboardPostType = Prisma.PostGetPayload<{
     userName?: true;
     email: true;
     password: true;
-    published: true;
+    shared: true;
     createdAt: true;
     updatedAt: true;
   };

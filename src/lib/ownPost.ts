@@ -7,7 +7,7 @@ const postSelect = {
   userName: true,
   email: true,
   password: true,
-  published: true,
+  shared: true,
   createdAt: true,
   updatedAt: true,
 } satisfies Prisma.PostSelect;
