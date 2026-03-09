@@ -4,6 +4,7 @@ export const metadata: Metadata = {
   description: 'パスワード管理アプリのダッシュボードページです。',
 };
 
+import Link from 'next/link';
 import { Search, PlusCircle } from '@deemlol/next-icons';
 import { auth } from '@/auth';
 import { getPosts } from '@/lib/ownPost';
@@ -12,8 +13,8 @@ import { HeadingLevel01 } from '@/components/ui/heading-level01';
 import { DashboardPost } from '@/components/pages/dashboard/DashboardPost';
 import { TextBase } from '@/components/ui/text-base';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import { ButtonGroup } from '@/components/ui/button-group';
+import { FloatingCreateButton } from '@/components/pages/dashboard/FloatingCreateButton';
 
 export default async function DashBoardPage() {
   const session = await auth();
@@ -41,7 +42,7 @@ export default async function DashBoardPage() {
             </Button>
           </ButtonGroup>
           <ButtonGroup marginTop="none">
-            <Button asChild>
+            <Button asChild id="create-button-top">
               <Link href="/dashboard/create">
                 <PlusCircle className="size-5" />
                 新規作成
@@ -60,6 +61,8 @@ export default async function DashBoardPage() {
           </TextBase>
         )}
       </div>
+
+      <FloatingCreateButton targetId="create-button-top" />
     </CommonSection>
   );
 }

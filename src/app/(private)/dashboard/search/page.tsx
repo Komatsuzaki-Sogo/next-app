@@ -37,7 +37,7 @@ export default async function DashBoardPage({
 
   return (
     <CommonSection>
-      <HeadingLevel01 align="left">検索結果</HeadingLevel01>
+      <HeadingLevel01>検索結果</HeadingLevel01>
 
       <FilterDashboardPost
         keywordProps={keyword}
