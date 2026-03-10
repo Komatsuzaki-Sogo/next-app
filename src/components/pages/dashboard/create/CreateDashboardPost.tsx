@@ -21,7 +21,7 @@ export function CreateDashboardPost() {
   const [shared, setShared] = useState(false);
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto">
+      <Card>
         <CardHeader>
           <CardTitle>
             <h1>新規作成</h1>

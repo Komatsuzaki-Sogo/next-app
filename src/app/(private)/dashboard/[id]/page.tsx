@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { getPost } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
+import { ButtonBack } from '@/components/ui/button-back';
 
 type Params = {
   params: Promise<{ id: string }>;
@@ -49,6 +50,7 @@ export default async function SharePage({ params }: Params) {
     <CommonSection>
       <h1 className="sr-only">{post.title}</h1>
       <DashboardPost post={post} />
+      <ButtonBack fallbackPath="dashboard" />
     </CommonSection>
   );
 }

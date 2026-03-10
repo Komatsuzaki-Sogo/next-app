@@ -9,7 +9,7 @@ import { SignupForm } from '@/components/pages/auth/signup/SignupForm';
 
 export default function SignupPage() {
   return (
-    <CommonSection fullHeight>
+    <CommonSection fullHeight width="narrow">
       <div className="flex flex-col justify-center h-full">
         <SignupForm />
       </div>

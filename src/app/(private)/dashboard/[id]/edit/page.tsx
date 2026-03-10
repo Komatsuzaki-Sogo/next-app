@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getPost } from '@/lib/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { EditDashboardPost } from '@/components/pages/dashboard/edit/EditDashboardPost';
+import { ButtonBack } from '@/components/ui/button-back';
 
 type Params = {
   params: Promise<{ id: string }>;
@@ -21,8 +22,9 @@ export default async function EditPage({ params }: Params) {
     notFound();
   }
   return (
-    <CommonSection>
+    <CommonSection width="narrow">
       <EditDashboardPost post={post} />
+      <ButtonBack fallbackPath="dashboard" />
     </CommonSection>
   );
 }

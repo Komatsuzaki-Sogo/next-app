@@ -103,7 +103,7 @@ export function SignupForm() {
 
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto">
+      <Card>
         <CardHeader>
           <CardTitle>
             <h1>ユーザー登録</h1>

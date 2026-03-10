@@ -38,9 +38,9 @@ export function ButtonBack({
 
   return (
     <div className="mt-6 md:mt-8">
-      <Button variant={variant} onClick={handleBack} className="gap-2">
-        <ArrowLeftCircle className="size-5" />
-        <span className="underline hover:no-underline">{label}</span>
+      <Button variant={variant} onClick={handleBack}>
+        <ArrowLeftCircle />
+        <span>{label}</span>
       </Button>
     </div>
   );
