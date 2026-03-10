@@ -22,7 +22,7 @@ export async function authenticate(
         case 'CredentialsSignin':
           return 'メールアドレスまたはパスワードが正しくありません。';
         default:
-          return 'エラーが発生しました。';
+          return error.message;
       }
     }
     throw error;
