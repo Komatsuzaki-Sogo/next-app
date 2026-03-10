@@ -34,14 +34,14 @@ export function DashboardPostDropdownMenu({ post }: PostCardProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-20">
-          {post.shared && (
+          {/* {post.shared && (
             <DropdownMenuItem className="text-primary" asChild>
               <Link href={`/share/${post.id}`} target="_blank">
                 <Share className="text-primary" />
                 <span>共有</span>
               </Link>
             </DropdownMenuItem>
-          )}
+          )} */}
           <DropdownMenuItem className="text-primary" asChild>
             <Link href={`/dashboard/${post.id}/edit`}>
               <Edit className="text-primary" />
