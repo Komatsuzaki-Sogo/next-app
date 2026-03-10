@@ -1,7 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
-import { Copy, Eye, EyeOff } from '@deemlol/next-icons';
+import { Copy, Eye, EyeOff, ArrowRightCircle } from '@deemlol/next-icons';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,7 +18,16 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import { DashboardPostDropdownMenu } from './DashboardPostDropdownMenu';
 
-export function DashboardPost({ post }: PostCardProps) {
+interface DashboardPostExtendedProps extends PostCardProps {
+  showMenu?: boolean;
+  isLink?: boolean;
+}
+
+export function DashboardPost({
+  post,
+  showMenu = true,
+  isLink = false,
+}: DashboardPostExtendedProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleCopy = async (text: string, label: string) => {
@@ -39,7 +49,7 @@ export function DashboardPost({ post }: PostCardProps) {
         <CardTitle className="text-lg font-semibold text-gray-900 self-center">
           <h2>{post.title}</h2>
         </CardTitle>
-        <DashboardPostDropdownMenu post={post} />
+        {showMenu && <DashboardPostDropdownMenu post={post} />}
       </CardHeader>
 
       <CardContent>
@@ -123,18 +133,38 @@ export function DashboardPost({ post }: PostCardProps) {
             </TableRow>
           </TableBody>
         </Table>
-
-        <Separator className="my-4" />
-        <div className="flex gap-3">
-          <div className="text-xs text-gray-400">
-            作成日: {new Date(post.createdAt).toLocaleDateString('ja-JP')}
+        {(showMenu || isLink) && <Separator className="my-4" />}
+        {(showMenu || isLink) && (
+          <div className="flex gap-y-1 gap-x-3 items-center justify-between">
+            {showMenu && (
+              <div className="flex flex-wrap gap-y-1 gap-x-2">
+                <div className="text-xs text-gray-400">
+                  作成日: {new Date(post.createdAt).toLocaleDateString('ja-JP')}
+                </div>
+                {post.createdAt.getTime() !== post.updatedAt.getTime() && (
+                  <div className="text-xs text-gray-400">
+                    最終更新日: {post.updatedAt.toLocaleDateString('ja-JP')}
+                  </div>
+                )}
+              </div>
+            )}
+            {isLink && (
+              <div className="w-fit">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  asChild
+                  className="text-xs text-gray-400 p-0! h-fit hover:text-gray-500 hover:bg-transparent"
+                >
+                  <Link href={`/dashboard/${post.id}`} className="w-full">
+                    <span>View detail</span>
+                    <ArrowRightCircle className="size-5" />
+                  </Link>
+                </Button>
+              </div>
+            )}
           </div>
-          {post.createdAt.getTime() !== post.updatedAt.getTime() && (
-            <div className="text-xs text-gray-400">
-              最終更新日: {post.updatedAt.toLocaleDateString('ja-JP')}
-            </div>
-          )}
-        </div>
+        )}
       </CardContent>
     </Card>
   );

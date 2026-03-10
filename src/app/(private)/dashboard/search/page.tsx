@@ -47,7 +47,9 @@ export default async function DashBoardPage({
 
       <div className="space-y-4 mt-10 reset-margin md:space-y-6">
         {posts.length > 0 ? (
-          posts.map((post) => <DashboardPost key={post.id} post={post} />)
+          posts.map((post) => (
+            <DashboardPost key={post.id} post={post} isLink />
+          ))
         ) : hasParams ? (
           <TextBase center>
             <p>

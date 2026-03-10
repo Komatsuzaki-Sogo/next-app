@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { LoadingUI } from '../../../ui/loading';
@@ -17,6 +18,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { Switch } from '@/components/ui/switch';
 
 export function CreateDashboardPost() {
+  const [shared, setShared] = useState(false);
   return (
     <>
       <Card className="h-fit w-full max-w-md mx-auto">
@@ -81,7 +83,12 @@ export function CreateDashboardPost() {
               <Field className="gap-1">
                 <div className="flex items-center gap-2">
                   <FieldLabel htmlFor="shared">共有可否</FieldLabel>
-                  <Switch id="shared" name="shared" checked={false} />
+                  <Switch
+                    id="shared"
+                    name="shared"
+                    checked={shared}
+                    onCheckedChange={setShared}
+                  />
                 </div>
                 <FieldDescription>
                   オンにすると、URLを知っている人が内容を閲覧できるようになります。

@@ -30,21 +30,21 @@ export function DashboardPostDropdownMenu({ post }: PostCardProps) {
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon-sm" aria-label="more options">
-            <MoreVertical className="size-4" />
+            <MoreVertical />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-25" align="end">
+        <DropdownMenuContent className="w-20">
           {post.shared && (
             <DropdownMenuItem className="text-primary" asChild>
-              <Link href={`/result/${post.id}`} target="_blank">
-                <Share className="text-primary size-5" />
+              <Link href={`/share/${post.id}`} target="_blank">
+                <Share className="text-primary" />
                 <span>共有</span>
               </Link>
             </DropdownMenuItem>
           )}
           <DropdownMenuItem className="text-primary" asChild>
             <Link href={`/dashboard/${post.id}/edit`}>
-              <Edit className="text-primary size-5" />
+              <Edit className="text-primary" />
               <span>編集</span>
             </Link>
           </DropdownMenuItem>
@@ -61,7 +61,7 @@ export function DashboardPostDropdownMenu({ post }: PostCardProps) {
                 setShowDeleteDialog(true);
               }}
             >
-              <Trash2 className="text-destructive size-5" />
+              <Trash2 className="text-destructive" />
               <span className="text-destructive">削除</span>
             </button>
           </DropdownMenuItem>

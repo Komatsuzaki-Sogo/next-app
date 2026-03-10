@@ -72,3 +72,13 @@ export async function getPost(userId: string, postId: string) {
     select: postSelect,
   });
 }
+
+export async function getSharedPost(postId: string) {
+  return await prisma.post.findFirst({
+    where: {
+      id: postId,
+      shared: true,
+    },
+    select: postSelect,
+  });
+}
