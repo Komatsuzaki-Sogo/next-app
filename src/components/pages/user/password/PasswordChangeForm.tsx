@@ -81,7 +81,7 @@ export function PasswordChangeForm() {
 
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto mt-8 md:mt-10">
+      <Card>
         <CardHeader>
           <CardTitle>
             <h1>パスワード変更</h1>

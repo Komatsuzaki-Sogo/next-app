@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Table,
   TableHead,
@@ -6,6 +7,7 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui/table';
+import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
 import type { UserProps } from '@/types/user';
 
 export default function UserInfoPreview({ user }: UserProps) {
@@ -45,6 +47,15 @@ export default function UserInfoPreview({ user }: UserProps) {
           )}
         </TableBody>
       </Table>
+
+      <FieldGroup className="mt-4">
+        <Field>
+          <FieldDescription className="text-center">
+            パスワード変更は
+            <Link href="/user/password">こちら</Link>
+          </FieldDescription>
+        </Field>
+      </FieldGroup>
     </>
   );
 }
