@@ -14,6 +14,8 @@ const postSelect = {
 
 export async function getPosts(
   userId: string,
+  take?: number,
+  skip?: number,
   keyword?: string,
   startDate?: string,
   endDate?: string,
@@ -60,6 +62,8 @@ export async function getPosts(
     where: { AND: filters },
     select: postSelect,
     orderBy: { createdAt: 'desc' },
+    take: take,
+    skip: skip,
   });
 }
 

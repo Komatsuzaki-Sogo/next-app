@@ -7,14 +7,15 @@ export const metadata: Metadata = {
 import Link from 'next/link';
 import { Search, PlusCircle } from '@deemlol/next-icons';
 import { auth } from '@/auth';
-import { getPosts } from '@/lib/ownPost';
+import { getPosts } from '@/lib/actions/post/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
-import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
 import { TextBase } from '@/components/ui/text-base';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { FloatingCreateButton } from '@/components/pages/dashboard/index/FloatingCreateButton';
+import { InfiniteDashboardPosts } from '@/components/pages/dashboard/common/InfiniteDashboardPosts';
+import { POST_CONFIG } from '@/constants/post';
 
 export default async function DashBoardPage() {
   const session = await auth();
@@ -23,7 +24,11 @@ export default async function DashBoardPage() {
     throw new Error('不正なリクエストです');
   }
 
-  const posts = await getPosts(userId);
+  const initialPosts = await getPosts(
+    userId,
+    POST_CONFIG.INFINITE_SCROLL_LIMIT,
+    0,
+  );
 
   return (
     <CommonSection>
@@ -53,10 +58,8 @@ export default async function DashBoardPage() {
       </div>
 
       <div className="space-y-4 mt-10 reset-margin md:space-y-6">
-        {posts.length > 0 ? (
-          posts.map((post) => (
-            <DashboardPost key={post.id} post={post} isLink />
-          ))
+        {initialPosts.length > 0 ? (
+          <InfiniteDashboardPosts initialPosts={initialPosts} />
         ) : (
           <TextBase center>
             <p>登録されているデータがありません。</p>

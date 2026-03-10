@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getPost } from '@/lib/ownPost';
+import { getPost } from '@/lib/actions/post/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
 import { ButtonBack } from '@/components/ui/button-back';

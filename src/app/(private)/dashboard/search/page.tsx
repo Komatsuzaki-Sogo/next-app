@@ -5,12 +5,13 @@ export const metadata: Metadata = {
 };
 
 import { auth } from '@/auth';
-import { getPosts } from '@/lib/ownPost';
+import { getPosts } from '@/lib/actions/post/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
 import { TextBase } from '@/components/ui/text-base';
 import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
 import { FilterDashboardPost } from '@/components/pages/dashboard/search/FilterDashboardPost';
+import { POST_CONFIG } from '@/constants/post';
 
 type SearchParams = {
   keyword?: string;
@@ -33,7 +34,15 @@ export default async function DashBoardPage({
 
   const hasParams = !!(keyword?.trim() || (startDate && endDate));
 
-  const posts = await getPosts(userId, keyword, startDate, endDate, true);
+  const posts = await getPosts(
+    userId,
+    undefined,
+    undefined,
+    keyword,
+    startDate,
+    endDate,
+    true,
+  );
 
   return (
     <CommonSection>

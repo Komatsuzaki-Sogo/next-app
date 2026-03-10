@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getSharedPost } from '@/lib/ownPost';
+import { getSharedPost } from '@/lib/actions/post/ownPost';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
 
