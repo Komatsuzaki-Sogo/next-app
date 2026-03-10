@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData
+  formData: FormData,
 ) {
   try {
     await signIn('credentials', {
@@ -16,6 +16,7 @@ export async function authenticate(
 
     redirect('/dashboard');
   } catch (error) {
+    console.log(error);
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
