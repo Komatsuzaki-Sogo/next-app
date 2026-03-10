@@ -27,9 +27,10 @@ model User {
 model Post {
   id      String  @id @default(cuid())
   title   String
+  userName String?
   email   String
   password   String
-  published Boolean @default(true)
+  shared Boolean @default(true)
   authorId String
   author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())

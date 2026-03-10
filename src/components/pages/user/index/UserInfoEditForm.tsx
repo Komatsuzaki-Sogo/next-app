@@ -61,7 +61,7 @@ export function UserInfoEditForm({
       <div className="flex flex-col items-center gap-2">
         <div className="relative h-24 w-24">
           <Image
-            src={editPreviewUrl ?? '/img/avatar-placeholder.png'}
+            src={editPreviewUrl || '/img/avatar-placeholder.png'}
             alt="プロフィール画像"
             fill
             className="rounded-full object-cover"

@@ -81,7 +81,7 @@ export function PasswordChangeForm() {
 
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto mt-8 md:mt-10">
+      <Card>
         <CardHeader>
           <CardTitle>
             <h1>パスワード変更</h1>
@@ -113,6 +113,7 @@ export function PasswordChangeForm() {
                 <InputPassword
                   id="password"
                   name="password"
+                  placeholder="現在のパスワード"
                   required
                   value={form.password}
                   onChange={(e) =>
@@ -135,6 +136,7 @@ export function PasswordChangeForm() {
                 <InputPassword
                   id="newPassword"
                   name="newPassword"
+                  placeholder="新しいパスワード"
                   required
                   value={form.newPassword}
                   onChange={(e) =>
@@ -157,6 +159,7 @@ export function PasswordChangeForm() {
                 <InputPassword
                   id="newConfirmPassword"
                   name="newConfirmPassword"
+                  placeholder="新しいパスワード（確認）"
                   required
                   value={form.newConfirmPassword}
                   onChange={(e) =>

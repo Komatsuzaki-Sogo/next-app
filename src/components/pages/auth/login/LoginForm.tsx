@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LoadingUI } from '../../ui/loading';
+import { LoadingUI } from '../../../ui/loading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Field,
@@ -81,7 +81,7 @@ export function LoginForm() {
 
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto">
+      <Card>
         <CardHeader>
           <CardTitle>
             <h1>ログイン</h1>

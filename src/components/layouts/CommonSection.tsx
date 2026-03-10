@@ -9,9 +9,14 @@ const containerVariants = cva(
         true: 'h-full',
         false: '',
       },
+      width: {
+        default: 'grid-cols-[1fr_minmax(270px,var(--section-width))_1fr]',
+        narrow: 'grid-cols-[1fr_minmax(270px,var(--container-md))_1fr]',
+      },
     },
     defaultVariants: {
       fullHeight: false,
+      width: 'default',
     },
   },
 );
@@ -43,12 +48,13 @@ export function CommonSection({
   children,
   py,
   fullHeight,
+  width,
   className,
   ...props
 }: CommonSectionProps) {
   return (
     <div
-      className={cn(containerVariants({ fullHeight }), className)}
+      className={cn(containerVariants({ fullHeight, width }), className)}
       {...props}
     >
       <div className={contentVariants({ py, fullHeight })}>{children}</div>

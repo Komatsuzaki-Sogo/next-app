@@ -5,10 +5,11 @@ export const metadata: Metadata = {
 };
 
 import { CommonSection } from '@/components/layouts/CommonSection';
-import { LoginForm } from '@/components/pages/auth/LoginForm';
+import { LoginForm } from '@/components/pages/auth/login/LoginForm';
+
 export default function LoginPage() {
   return (
-    <CommonSection fullHeight>
+    <CommonSection fullHeight width="narrow">
       <div className="flex flex-col justify-center h-full">
         <LoginForm />
       </div>

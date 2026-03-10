@@ -12,7 +12,7 @@ import { TextSuccess } from '@/components/ui/text-success';
 import { UserInfoEditForm } from './UserInfoEditForm';
 import { LoadingUI } from '@/components/ui/loading';
 
-export function UserInfoClient({ user }: UserProps) {
+export function UserInfo({ user }: UserProps) {
   const router = useRouter();
   const [isEdit, setIsEdit] = useState(false);
   const [isEditSuccess, setIsEditSuccess] = useState(false);
@@ -63,7 +63,7 @@ export function UserInfoClient({ user }: UserProps) {
 
   return (
     <>
-      <Card className="h-fit w-full max-w-md mx-auto">
+      <Card>
         <CardHeader>
           <CardTitle className="flex justify-between items-center">
             <h1>ユーザー情報</h1>

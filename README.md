@@ -20,7 +20,12 @@ https://password-managed.vercel.app
 
 // マイグレーション(テーブル作成)
 npx prisma migrate dev --name init
+
+// テーブルのリセットが必要な場合
+npx prisma migrate reset
+
 // シード実行(ダミーデータ)
 npx prisma db seed
+
 // prisma クライアント再作成
 npx prisma generate

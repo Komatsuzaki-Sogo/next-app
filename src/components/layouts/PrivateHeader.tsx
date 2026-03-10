@@ -3,8 +3,6 @@ import { House } from '@deemlol/next-icons';
 import { PrivateHeaderMenuPC } from '@/components/layouts/PrivateHeaderMenuPC';
 import { auth } from '@/auth';
 import { PrivateHeaderMenuSP } from './PrivateHeaderMenuSP';
-import { PrivateHeaderSearch } from '@/components/layouts/PrivateHeaderSearch';
-import { PrivateHeaderSearchDialog } from '@/components/layouts/PrivateHeaderSearchDialog';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { Button } from '@/components/ui/button';
 
@@ -26,13 +24,11 @@ export async function PrivateHeader() {
             </Link>
           </Button>
 
-          <div className="flex items-center gap-4 md:hidden">
-            <PrivateHeaderSearchDialog />
+          <div className="block md:hidden">
             <PrivateHeaderMenuSP session={session} />
           </div>
 
-          <div className="hidden md:flex items-center gap-4 w-[80%] max-w-160">
-            <PrivateHeaderSearch />
+          <div className="hidden md:block">
             <PrivateHeaderMenuPC session={session} />
           </div>
         </div>

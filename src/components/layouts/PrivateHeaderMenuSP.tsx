@@ -48,7 +48,7 @@ export async function PrivateHeaderMenuSP({ session }: { session: Session }) {
 
       <SheetContent
         side="right"
-        className="w-[90%] max-w-100 z-200 gap-0"
+        className="w-[90%] max-w-80 z-200 gap-0"
         showCloseButton={false}
       >
         <SheetHeader className="sr-only">
@@ -64,83 +64,88 @@ export async function PrivateHeaderMenuSP({ session }: { session: Session }) {
           </SheetClose>
         </div>
 
-        <div className="flex items-center gap-3 px-2 pb-4 border-b">
-          <div className="relative size-10">
-            <Image
-              src={user.profileImage ?? ASSETS.avatarPlaceholder}
-              alt="プロフィール画像"
-              fill
-              className="rounded-full object-cover"
-              sizes="40px"
-            />
+        <div className="overflow-y-auto max-h-[calc(100vh-var(--header-height))]">
+          <div className="flex items-center gap-3 px-2 pb-4 border-b">
+            <div className="relative size-10">
+              <Image
+                src={user.profileImage || ASSETS.avatarPlaceholder}
+                alt="プロフィール画像"
+                fill
+                className="rounded-full object-cover"
+                sizes="40px"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-bold text-sm line-clamp-1">
+                {user.name}
+              </span>
+              <span className="text-xs text-muted-foreground line-clamp-1">
+                {user.email}
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-sm line-clamp-1">{user.name}</span>
-            <span className="text-xs text-muted-foreground line-clamp-1">
-              {user.email}
-            </span>
-          </div>
-        </div>
 
-        <nav className="flex flex-col gap-4">
-          {NAV_CONFIG.map((menu) => {
-            const Icon = menu.icon;
+          <nav className="flex flex-col gap-4">
+            {NAV_CONFIG.map((menu) => {
+              const Icon = menu.icon;
 
-            return (
-              <div key={menu.id} className="flex flex-col pt-2 space-y-2">
-                <div className="px-2">
-                  {menu.type === 'link' ? (
-                    /* リンク形式（ダッシュボード等） */
-                    <Link
-                      href={menu.href!}
-                      className="flex items-center gap-3 text-md font-medium p-2 hover:bg-accent rounded-md transition-colors"
-                    >
-                      <Icon className="size-5" />
-                      {menu.label}
-                    </Link>
-                  ) : (
-                    /* ドロップダウン形式の内容をフラットに展開 */
-                    <div className="flex flex-col gap-1">
-                      <p className="text-xs uppercase text-muted-foreground font-semibold px-2 mb-1">
-                        {menu.label}
-                      </p>
-                      {menu.items?.map((item, idx) => {
-                        const SubIcon = item.icon;
-                        const key = item.href ?? `sp-item-${idx}`;
+              return (
+                <div key={menu.id} className="flex flex-col pt-2 space-y-2">
+                  <div className="px-2">
+                    {menu.type === 'link' ? (
+                      <SheetClose asChild>
+                        <Link
+                          href={menu.href!}
+                          className="flex items-center gap-3 text-md font-medium p-2 hover:bg-accent rounded-md transition-colors"
+                        >
+                          <Icon className="size-5" />
+                          {menu.label}
+                        </Link>
+                      </SheetClose>
+                    ) : (
+                      <div className="flex flex-col gap-1">
+                        <p className="text-xs uppercase text-muted-foreground font-semibold px-2 mb-1">
+                          {menu.label}
+                        </p>
+                        {menu.items?.map((item, idx) => {
+                          const SubIcon = item.icon;
+                          const key = item.href ?? `sp-item-${idx}`;
 
-                        if (item.isLogout) {
-                          return (
-                            <form key={key} action={handleLogout}>
+                          if (item.isLogout) {
+                            return (
                               <button
-                                type="submit"
-                                className="flex items-center gap-3 w-full text-md font-medium p-2 text-destructive hover:bg-destructive/10 rounded-md transition-colors"
+                                key={key}
+                                type="button"
+                                onClick={handleLogout}
+                                className="cursor-pointer flex items-center gap-3 w-full text-md font-medium p-2 text-destructive hover:bg-destructive/10 rounded-md transition-colors"
                               >
                                 <SubIcon className="size-5" />
                                 {item.label}
                               </button>
-                            </form>
-                          );
-                        }
+                            );
+                          }
 
-                        return (
-                          <Link
-                            key={key}
-                            href={item.href!}
-                            className="flex items-center gap-3 text-md font-medium p-2 hover:bg-accent rounded-md transition-colors"
-                          >
-                            <SubIcon className="size-5" />
-                            {item.label}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
+                          return (
+                            <SheetClose key={key} asChild>
+                              <Link
+                                href={item.href!}
+                                className="flex items-center gap-3 text-md font-medium p-2 hover:bg-accent rounded-md transition-colors"
+                              >
+                                <SubIcon className="size-5" />
+                                {item.label}
+                              </Link>
+                            </SheetClose>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                  <Separator />
                 </div>
-                <Separator />
-              </div>
-            );
-          })}
-        </nav>
+              );
+            })}
+          </nav>
+        </div>
       </SheetContent>
     </Sheet>
   );

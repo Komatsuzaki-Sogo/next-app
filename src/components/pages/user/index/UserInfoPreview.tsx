@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Table,
   TableHead,
@@ -6,14 +7,16 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui/table';
+import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
 import type { UserProps } from '@/types/user';
 
 export default function UserInfoPreview({ user }: UserProps) {
+  console.log(user.profileImage);
   return (
     <>
       <div className="relative h-25 w-25 mx-auto">
         <Image
-          src={user.profileImage ?? '/img/avatar-placeholder.png'}
+          src={user.profileImage || '/img/avatar-placeholder.png'}
           alt="プロフィール画像"
           fill
           className="rounded-full object-cover"
@@ -44,6 +47,15 @@ export default function UserInfoPreview({ user }: UserProps) {
           )}
         </TableBody>
       </Table>
+
+      <FieldGroup className="mt-4">
+        <Field>
+          <FieldDescription className="text-center">
+            パスワード変更は
+            <Link href="/user/password">こちら</Link>
+          </FieldDescription>
+        </Field>
+      </FieldGroup>
     </>
   );
 }

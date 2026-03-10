@@ -1,5 +1,6 @@
 import { Noto_Sans_JP } from 'next/font/google';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -15,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={notoSansJP.variable}>
-      <body className="overflow-x-hidden">{children}</body>
+      <body className="overflow-x-hidden">
+        {children}
+        <Toaster position="top-center" closeButton />
+      </body>
     </html>
   );
 }

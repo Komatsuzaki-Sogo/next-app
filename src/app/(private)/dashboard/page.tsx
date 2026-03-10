@@ -4,63 +4,66 @@ export const metadata: Metadata = {
   description: 'パスワード管理アプリのダッシュボードページです。',
 };
 
+import Link from 'next/link';
+import { Search, PlusCircle } from '@deemlol/next-icons';
 import { auth } from '@/auth';
-import { getOwnPosts } from '@/lib/ownPost';
+import { getPosts } from '@/lib/actions/post/getPosts';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { HeadingLevel01 } from '@/components/ui/heading-level01';
+import { TextBase } from '@/components/ui/text-base';
+import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
+import { FloatingCreateButton } from '@/components/pages/dashboard/index/FloatingCreateButton';
+import { DashboardPost } from '@/components/pages/dashboard/common/DashboardPost';
 
-type SearchParams = {
-  search?: string;
-};
-
-export default async function DashBoardPage({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParams>;
-}) {
+export default async function DashBoardPage() {
   const session = await auth();
   const userId = session?.user?.id;
   if (!session?.user?.email || !userId) {
     throw new Error('不正なリクエストです');
   }
 
-  const posts = await getOwnPosts(userId);
-
-  const resolvedSearchParams = await searchParams;
-  const query = resolvedSearchParams.search || '';
-  console.log('query', query);
+  const posts = await getPosts(userId);
   return (
     <CommonSection>
-      <HeadingLevel01>ダッシュボード</HeadingLevel01>
+      <div className="flex flex-col gap-6 items-center justify-between md:flex-row">
+        <HeadingLevel01 align="left" className="pb-0">
+          ダッシュボード
+        </HeadingLevel01>
 
-      {posts.length > 0 ? (
-        <table className="table-auto w-full border-collapse border mt-8">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2 text-center">タイトル</th>
-              <th className="border p-2 text-center">メールアドレス</th>
-              <th className="border p-2 text-center">パスワード</th>
-              <th className="border p-2 text-center">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            {posts.map((post) => (
-              <tr key={post.id}>
-                <td className="border p-2">{post.title}</td>
-                <td className="border p-2">{post.email}</td>
-                <td className="border p-2">{post.password}</td>
-                <td className="border p-2">
-                  {new Date(post.updatedAt).toLocaleString()}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p className="mt-8 text-center text-gray-500">
-          <b>データがありません</b>
-        </p>
-      )}
+        <ButtonGroup marginTop="none">
+          <ButtonGroup marginTop="none">
+            <Button variant="outline" asChild>
+              <Link href="/dashboard/search">
+                <Search className="size-5" />
+                検索
+              </Link>
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup marginTop="none">
+            <Button asChild id="create-button-top">
+              <Link href="/dashboard/create">
+                <PlusCircle className="size-5" />
+                新規作成
+              </Link>
+            </Button>
+          </ButtonGroup>
+        </ButtonGroup>
+      </div>
+
+      <div className="space-y-4 mt-10 reset-margin md:space-y-6">
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <DashboardPost key={post.id} post={post} isLink />
+          ))
+        ) : (
+          <TextBase center>
+            <p>登録されているデータがありません。</p>
+          </TextBase>
+        )}
+      </div>
+
+      <FloatingCreateButton targetId="create-button-top" />
     </CommonSection>
   );
 }
