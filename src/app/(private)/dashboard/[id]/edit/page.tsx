@@ -1,6 +1,6 @@
 import { auth } from '@/auth';
 import { notFound } from 'next/navigation';
-import { getPost } from '@/lib/actions/post/ownPost';
+import { getPost } from '@/lib/actions/post/getPosts';
 import { CommonSection } from '@/components/layouts/CommonSection';
 import { EditDashboardPost } from '@/components/pages/dashboard/edit/EditDashboardPost';
 import { ButtonBack } from '@/components/ui/button-back';
