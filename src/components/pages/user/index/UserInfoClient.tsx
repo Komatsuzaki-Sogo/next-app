@@ -34,7 +34,7 @@ export function UserInfoClient({ user }: UserProps) {
     setIsEdit(false);
     setIsEditSuccess(true);
     router.refresh();
-  }, [state.success, router]); // state.success と router を依存配列に追加
+  }, [state.success, router]);
 
   // router.refresh() 後に渡される最新の user を編集用 state に反映するため
   useEffect(() => {
