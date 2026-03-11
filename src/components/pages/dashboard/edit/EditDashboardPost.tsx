@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useActionState, useEffect } from 'react';
+import { useState } from 'react';
 import type { PostCardProps } from '@/types/post';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { LoadingUI } from '../../../ui/loading';
+// import { LoadingUI } from '../../../ui/loading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Field,
@@ -13,7 +13,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { InputPassword } from '@/components/ui/input-password';
-import { TextError } from '@/components/ui/text-error';
+// import { TextError } from '@/components/ui/text-error';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Switch } from '@/components/ui/switch';
