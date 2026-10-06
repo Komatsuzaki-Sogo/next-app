@@ -46,17 +46,8 @@ export function PrivateHeaderMenuClientSP({ user }: Props) {
           <SheetTitle>メニュー</SheetTitle>
         </SheetHeader>
 
-        <div className="h-(--header-height) flex items-center justify-end px-4">
-          <SheetClose asChild>
-            <Button variant="ghost" size="icon">
-              <X className="size-6" />
-              <span className="sr-only">メニューを閉じる</span>
-            </Button>
-          </SheetClose>
-        </div>
-
-        <div className="overflow-y-auto max-h-[calc(100vh-var(--header-height))]">
-          <div className="flex items-center gap-3 px-4 pb-6 pt-2">
+        <div className="h-(--header-height) flex items-center justify-between gap-2 px-4">
+          <div className="max-w-[calc(100%-50px)] flex items-center gap-3">
             <div className="relative size-12 flex-none">
               <Image
                 src={user.profileImage || ASSETS.avatarPlaceholder}
@@ -68,13 +59,24 @@ export function PrivateHeaderMenuClientSP({ user }: Props) {
               />
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="font-bold text-sm truncate">{user.name}</span>
-              <span className="text-xs text-muted-foreground truncate">
+              <span className="font-bold text-sm truncate wrap-anywhere">
+                {user.name}
+              </span>
+              <span className="text-xs text-muted-foreground truncate wrap-anywhere">
                 {user.email}
               </span>
             </div>
           </div>
 
+          <SheetClose asChild className="">
+            <Button variant="ghost" size="icon">
+              <X className="size-6" />
+              <span className="sr-only">メニューを閉じる</span>
+            </Button>
+          </SheetClose>
+        </div>
+
+        <div className="overflow-y-auto max-h-[calc(100vh-var(--header-height))]">
           <Separator />
 
           <nav className="flex flex-col">

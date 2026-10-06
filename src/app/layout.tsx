@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={notoSansJP.variable}>
-      <body className="overflow-x-hidden">
+      <body className="overflow-x-hidden bg-gray-50">
         {children}
         <Toaster position="top-center" closeButton />
       </body>

@@ -11,7 +11,7 @@ export async function PrivateHeader() {
   if (!session?.user?.email) throw new Error('不正なリクエストです');
 
   return (
-    <header className="[grid-area:header] h-(--header-height) flex items-center bg-background sticky top-0 z-100">
+    <header className="[grid-area:header] h-(--header-height) flex items-center bg-gray-50 sticky top-0 z-100">
       <CommonSection py="none" fullHeight>
         <div className="flex items-center justify-between h-full">
           <Button variant="ghost" size="icon" asChild>
