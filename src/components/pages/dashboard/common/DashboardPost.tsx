@@ -21,12 +21,14 @@ import { DashboardPostDropdownMenu } from './DashboardPostDropdownMenu';
 interface DashboardPostExtendedProps extends PostCardProps {
   showMenu?: boolean;
   isLink?: boolean;
+  isSharedShow?: boolean;
 }
 
 export function DashboardPost({
   post,
   showMenu = true,
   isLink = false,
+  isSharedShow = false,
 }: DashboardPostExtendedProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -131,6 +133,18 @@ export function DashboardPost({
                 </div>
               </TableCell>
             </TableRow>
+            {isSharedShow && (
+              <TableRow className="border-none">
+                <TableHead className="h-fit px-0 w-28">シェア</TableHead>
+                <TableCell className="py-1">
+                  <div className="flex items-center gap-1">
+                    <span className="font-mono break-all">
+                      {post.shared ? 'ON' : 'OFF'}
+                    </span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
         {(showMenu || isLink) && <Separator className="my-4" />}

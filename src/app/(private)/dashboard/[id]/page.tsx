@@ -49,7 +49,7 @@ export default async function SharePage({ params }: Params) {
   return (
     <CommonSection>
       <h1 className="sr-only">{post.title}</h1>
-      <DashboardPost post={post} />
+      <DashboardPost post={post} isSharedShow />
       <ButtonBack fallbackPath="dashboard" />
     </CommonSection>
   );
