@@ -59,7 +59,7 @@ export async function getPosts(
   return await prisma.post.findMany({
     where: { AND: filters },
     select: postSelect,
-    orderBy: { createdAt: 'desc' },
+    orderBy: { updatedAt: 'desc' },
   });
 }
 
