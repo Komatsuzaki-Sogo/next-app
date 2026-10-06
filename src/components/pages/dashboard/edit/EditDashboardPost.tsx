@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useActionState, useState } from 'react';
 import type { PostCardProps } from '@/types/post';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-// import { LoadingUI } from '../../../ui/loading';
+import { LoadingUI } from '@/components/ui/loading';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Field,
@@ -13,17 +13,71 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { InputPassword } from '@/components/ui/input-password';
-// import { TextError } from '@/components/ui/text-error';
+import { TextError } from '@/components/ui/text-error';
 import { Badge } from '@/components/ui/badge';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Switch } from '@/components/ui/switch';
+import {
+  updatePost,
+  type UpdatePostState,
+} from '@/lib/actions/post/updatePost';
+import { createPostSchema } from '@/validations/post';
+
+type PostField = 'title' | 'userName' | 'email' | 'password';
+type ClientErrors = Partial<Record<PostField, string>>;
+
+const initialState: UpdatePostState = { success: false, errors: {} };
 
 export function EditDashboardPost({ post }: PostCardProps) {
-  const [title, setTitle] = useState(post.title);
-  const [userName, setUserName] = useState(post.userName);
-  const [email, setEmail] = useState(post.email);
-  const [password, setPassword] = useState(post.password);
+  const [state, formAction, isPending] = useActionState(
+    updatePost,
+    initialState,
+  );
+  const [form, setForm] = useState({
+    title: post.title,
+    userName: post.userName ?? '',
+    email: post.email,
+    password: post.password,
+  });
   const [shared, setShared] = useState(post.shared);
+  const [clientErrors, setClientErrors] = useState<ClientErrors>({});
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    if (!['title', 'userName', 'email', 'password'].includes(name)) {
+      return;
+    }
+
+    const field = name as PostField;
+    const validation = createPostSchema.safeParse({
+      ...form,
+      [field]: value,
+      shared,
+    });
+    const message = validation.success
+      ? undefined
+      : validation.error.flatten().fieldErrors[field]?.[0];
+
+    setClientErrors((previous) => ({ ...previous, [field]: message }));
+  };
+
+  const submit = (formData: FormData) => {
+    const validation = createPostSchema.safeParse({ ...form, shared });
+    if (!validation.success) {
+      const errors = validation.error.flatten().fieldErrors;
+      setClientErrors({
+        title: errors.title?.[0],
+        userName: errors.userName?.[0],
+        email: errors.email?.[0],
+        password: errors.password?.[0],
+      });
+      return;
+    }
+
+    formData.set('postId', post.id);
+    formData.set('shared', String(shared));
+    formAction(formData);
+  };
 
   return (
     <>
@@ -35,8 +89,11 @@ export function EditDashboardPost({ post }: PostCardProps) {
         </CardHeader>
 
         <CardContent>
-          <form className="flex flex-col gap-6">
+          <form action={submit} className="flex flex-col gap-6">
             <FieldGroup>
+              {state.errors.form && (
+                <TextError>{state.errors.form.join(', ')}</TextError>
+              )}
               <Field>
                 <FieldLabel htmlFor="title">
                   タイトル<Badge variant="required">必須</Badge>
@@ -46,22 +103,44 @@ export function EditDashboardPost({ post }: PostCardProps) {
                   type="text"
                   name="title"
                   placeholder="タイトルを入力"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  value={form.title}
+                  onChange={(event) =>
+                    setForm((previous) => ({
+                      ...previous,
+                      title: event.target.value,
+                    }))
+                  }
+                  onBlur={handleBlur}
                   required
                 />
+                {(clientErrors.title || state.errors.title?.[0]) && (
+                  <TextError>
+                    {clientErrors.title || state.errors.title?.[0]}
+                  </TextError>
+                )}
               </Field>
 
               <Field>
-                <FieldLabel htmlFor="username">ユーザーID</FieldLabel>
+                <FieldLabel htmlFor="userName">ユーザーID</FieldLabel>
                 <Input
-                  id="username"
+                  id="userName"
                   type="text"
-                  name="username"
+                  name="userName"
                   placeholder="ユーザーIDを入力"
-                  value={userName ?? ''}
-                  onChange={(e) => setUserName(e.target.value)}
+                  value={form.userName}
+                  onChange={(event) =>
+                    setForm((previous) => ({
+                      ...previous,
+                      userName: event.target.value,
+                    }))
+                  }
+                  onBlur={handleBlur}
                 />
+                {(clientErrors.userName || state.errors.userName?.[0]) && (
+                  <TextError>
+                    {clientErrors.userName || state.errors.userName?.[0]}
+                  </TextError>
+                )}
               </Field>
 
               <Field>
@@ -73,10 +152,21 @@ export function EditDashboardPost({ post }: PostCardProps) {
                   type="email"
                   name="email"
                   placeholder="メールアドレスを入力"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={form.email}
+                  onChange={(event) =>
+                    setForm((previous) => ({
+                      ...previous,
+                      email: event.target.value,
+                    }))
+                  }
+                  onBlur={handleBlur}
                   required
                 />
+                {(clientErrors.email || state.errors.email?.[0]) && (
+                  <TextError>
+                    {clientErrors.email || state.errors.email?.[0]}
+                  </TextError>
+                )}
               </Field>
 
               <Field>
@@ -87,10 +177,21 @@ export function EditDashboardPost({ post }: PostCardProps) {
                   id="password"
                   name="password"
                   placeholder="パスワードを入力"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={form.password}
+                  onChange={(event) =>
+                    setForm((previous) => ({
+                      ...previous,
+                      password: event.target.value,
+                    }))
+                  }
+                  handleBlur={handleBlur}
                   required
                 />
+                {(clientErrors.password || state.errors.password?.[0]) && (
+                  <TextError>
+                    {clientErrors.password || state.errors.password?.[0]}
+                  </TextError>
+                )}
               </Field>
 
               <Field className="gap-1">
@@ -104,13 +205,13 @@ export function EditDashboardPost({ post }: PostCardProps) {
                   />
                 </div>
                 <FieldDescription>
-                  オンにすると、URLを知っている人が内容を閲覧できるようになります。
+                  オンにすると、URLを知っている方が内容を閲覧できるようになります。
                 </FieldDescription>
               </Field>
 
               <Field>
                 <ButtonGroup marginTop="none">
-                  <Button type="submit" size="lg">
+                  <Button type="submit" size="lg" disabled={isPending}>
                     編集を保存する
                   </Button>
                 </ButtonGroup>
@@ -120,7 +221,7 @@ export function EditDashboardPost({ post }: PostCardProps) {
         </CardContent>
       </Card>
 
-      {/* {isPending && <LoadingUI />} */}
+      {isPending && <LoadingUI />}
     </>
   );
 }
