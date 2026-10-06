@@ -91,7 +91,7 @@ export function CreateDashboardPost() {
                   />
                 </div>
                 <FieldDescription>
-                  オンにすると、URLを知っている人が内容を閲覧できるようになります。
+                  オンにすると、URLを知っている方が内容を閲覧できるようになります。
                 </FieldDescription>
               </Field>
 
