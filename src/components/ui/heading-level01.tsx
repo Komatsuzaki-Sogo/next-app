@@ -19,7 +19,7 @@ const headingWrapper = cva(
 
 /* ---------- h1 ---------- */
 const headingTitle = cva(
-  'text-balance font-bold leading-tight tracking-tight text-primary md:leading-[1.1]',
+  'w-full text-balance font-bold leading-tight tracking-tight text-primary md:leading-[1.1]',
   {
     variants: {
       size: {

@@ -6,7 +6,7 @@ export function PublicFooter() {
       <CommonSection py="none" fullHeight>
         <div className="flex flex-col justify-center h-full">
           <small className="block w-full text-xs text-muted-foreground tracking-wide text-center">
-            Copyright &copy; ○○○○○○○○ All Rights Reserved.
+            Copyright &copy; password managed All Rights Reserved.
           </small>
         </div>
       </CommonSection>
